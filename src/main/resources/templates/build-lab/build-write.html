@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
+<head>
+    <meta charset="UTF-8"/>
+    <title>thymeleaf layout</title>
+    <meta name="viewport"
+          content="width=device-width, maximum-scale=1.0, minimum-scale=1, user-scalable=yes,initial-scale=1.0"/>
+    <!-- content script -->
+    <th:block th:replace="~{fragments/config::configFragment}"></th:block>
+    <link rel="stylesheet" th:href="@{/css/build-lab/build-write.css}">
+    <script type="text/javascript" src="//code.jquery.com/jquery-1.11.0.min.js"></script>
+    <script type="text/javascript" src="/smarteditor/js/service/HuskyEZCreator.js" charset="utf-8"></script>
+</head>
+<!--	<th:block layout:fragment="css"></th:block>-->
+
+
+<!-- content script -->
+<!--	<th:block layout:fragment="script"></th:block>-->
+<body>
+
+
+
+<th:block th:replace="~{fragments/header :: headerFragment}"></th:block>
+
+<th:block layout:fragment="content">
+    <!-- 2023.11.22 빌드 연구소 게시글 작성 전체 컨테이너 시작 -->
+    <div class="build-container">
+    <!-- 2023.11.22 빌드 연구소 게시글 작성 미니 컨테이너 시작 -->
+        <div class="build-mini-container">
+            <div class="build-name">빌드 연구소 게시물 작성</div>
+            <div class="space"></div>
+            <hr>
+            <div class="space"></div>
+            <!-- 2023.11.24 빌드 연구소 게시글 작성자 영역 시작 -->
+            <div class="info-area">
+                <ul class="author-info">
+                    <li><span class="label">작성자 : </span></li>
+                    <li><span class="nickname">o민주몬o</span></li>
+                    <li><span class="divider">|</span></li>
+                    <li><span class="label">레벨 : </span></li>
+                    <li><span class="level">LV.100</span></li>
+                    <li><span class="divider">|</span></li>
+                </ul>
+                <ul class="date-info">
+                    <li><span class="label">작성일 : </span></li>
+                    <li><span class="date">2023.11.24</span></li>
+                </ul>
+            </div>
+            <!-- 2023.11.24 빌드 연구소 게시글 작성자 영역 끝 -->
+
+            <!-- 2023.11.24 빌드 연구소 게시글 제목 작성 컨테이너 시작 -->
+            <div class="build-title">
+                <input type="text" id="write-build-title" placeholder="제목을 입력하세요">
+            </div>
+        <!-- 2023.11.24 빌드 연구소 게시글 제목 작성 컨테이너 끝 -->
+
+            <!-- 2023.11.22 빌드 연구소 게시글 내용 작성 컨테이너 시작 -->
+                <textarea id="txtContent" rows="10" cols="10"></textarea>
+            <!-- 2023.11.22 빌드 연구소 게시글 내용 작성 컨테이너 끝 -->
+
+            <!--   2023.11.24 빌드 연구소 버튼 영역 시작 -->
+            <div class="button-area">
+                <div class="go-back">
+                    <button type="button">뒤로가기</button>
+                </div>
+                <div class="send-btn">
+                    <button type="button" id="delete-btn">삭제</button>
+                    <button type="submit" id="submit-btn">작성완료</button>
+                </div>
+            </div>
+            <!--   2023.11.24 빌드 연구소 버튼 영역 끝 -->
+        </div>
+        <!-- 2023.11.22 빌드 연구소 게시글 작성 미니 컨테이너 끝 -->
+    </div>
+    <!-- 2023.11.22 빌드 연구소 게시글 작성 전체 컨테이너 끝 -->
+</th:block>
+
+<th:block th:replace="~{fragments/footer :: footerFragment}"></th:block>
+<script th:src="@{/js/build-lab/build-write.js}"></script>
+</body>
+</html>

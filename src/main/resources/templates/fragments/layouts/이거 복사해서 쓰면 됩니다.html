@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
+<head>
+    <meta charset="UTF-8"/>
+    <title>thymeleaf layout</title>
+    <meta name="viewport"
+          content="width=device-width, maximum-scale=1.0, minimum-scale=1, user-scalable=yes,initial-scale=1.0"/>
+    <!-- content script -->
+    <th:block th:replace="~{fragments/config::configFragment}"></th:block>
+
+
+</head>
+<!--	<th:block layout:fragment="css"></th:block>-->
+
+
+<!-- content script -->
+<!--	<th:block layout:fragment="script"></th:block>-->
+<body>
+
+
+
+<th:block th:replace="~{fragments/header :: headerFragment}"></th:block>
+
+<th:block layout:fragment="content">
+    여기에 내용 쓰면 됩니다.
+</th:block>
+
+<th:block th:replace="~{fragments/footer :: footerFragment}"></th:block>
+
+</body>
+</html>

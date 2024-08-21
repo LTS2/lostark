@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>리그 오브 레전드 듀오 게시판</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+        }
+
+        .main-duo-find {
+            width: 80%;
+            margin: 20px auto;
+            display: flex;
+            flex-wrap: nowrap;
+            overflow-x: auto;
+            border: 2px solid #ccc;
+            border-radius: 10px;
+            padding: 10px;
+        }
+
+        .main-duo-board {
+            flex: 0 0 auto;
+            width: 300px;
+            min-width: 300px;
+            margin-right: 10px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            padding: 10px;
+        }
+
+        /* 추가적인 스타일링을 위해 필요한 부분을 추가로 작성할 수 있습니다. */
+    </style>
+</head>
+
+<body>
+
+<div class="main-duo-find">
+    <!--2023.11.21 듀오 구하기 폼 시작 -->
+    <div class="main-duo-find-container">
+        <i id="scroll-left-btn" class="fa-solid fa-chevron-left fa-2xl"></i>
+        <div class="main-duo-find" id="duoBoardContainer">
+            <div th:each="post : ${posts}" class="main-duo-board">
+                <div class="main-duo-board-user-profile">
+                    <i class="fa-solid fa-user"></i>
+                </div>
+                <h3 th:text="${post.title}"/>
+
+                <div class="main-duo-board-summoner-info">
+                    <p th:text="${post.nickName}" class="main-duo-board-nickname"/>
+                    <p th:text="${post.rank}" class="main-duo-board-rank"/>
+                    <i th:if="${post.microphoneSelected}" id="main-duo-board-mic" class="fa-solid fa-microphone"></i>
+                    <i th:unless="${post.microphoneSelected}" class="fa-solid fa-microphone-slash"></i>
+                </div>
+                <p th:text="${post.content}" class="main-duo-board-content"/>
+                <hr class="main-hr1">
+            </div>
+        </div>
+        <i id="scroll-right-btn"  class="fa-solid fa-chevron-right fa-2xl"></i>
+    </div>
+    <!--2023.11.22 듀오 구하기 폼 끝 -->
+</div>
+
+</body>
+
+</html>
