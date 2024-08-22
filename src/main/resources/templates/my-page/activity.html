@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
+<head>
+    <meta charset="UTF-8"/>
+    <title>thymeleaf layout</title>
+    <meta name="viewport"
+          content="width=device-width, maximum-scale=1.0, minimum-scale=1, user-scalable=yes,initial-scale=1.0"/>
+    <!-- content script -->
+    <th:block th:replace="~{fragments/config::configFragment}"></th:block>
+
+</head>
+<!--	<th:block layout:fragment="css"></th:block>-->
+
+
+<!-- content script -->
+<!--	<th:block layout:fragment="script"></th:block>-->
+<body>
+    <th:block th:replace="~{fragments/header :: headerFragment}"></th:block>
+
+    <main style="margin-top: 20px;" id="side-con">
+        <th:block th:replace="~{fragments/sidebar :: sideBarFragment}"></th:block>
+        <section class="content" id="activity-content">
+            <div>
+                <h1>활동내역 조회</h1>
+            </div>
+            <br>
+            <br>
+            <div class="dashboard-section">
+                <table class="dashboard-table">
+                    <thead>
+                    <tr>
+                        <th>캐릭터명</th>
+                        <th>날짜</th>
+                        <th>활동</th>
+                        <th>인원</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr>
+                        <td>이게낭만인가</td>
+                        <td>2024-08-22</td>
+                        <td>상아탑(하드1620)</td>
+                        <td>4</td>
+                    </tr>
+                    <tr>
+                        <td>이게낭만인가</td>
+                        <td>2024-08-22</td>
+                        <td>상아탑(하드1620)</td>
+                        <td>4</td>
+                    </tr>
+                    <tr>
+                        <td>이게낭만인가</td>
+                        <td>2024-08-22</td>
+                        <td>상아탑(하드1620)</td>
+                        <td>4</td>
+                    </tr>
+                    <tr>
+                        <td>이게낭만인가</td>
+                        <td>2024-08-22</td>
+                        <td>상아탑(하드1620)</td>
+                        <td>4</td>
+                    </tr>
+                    <tr>
+                        <td>이게낭만인가</td>
+                        <td>2024-08-22</td>
+                        <td>상아탑(하드1620)</td>
+                        <td>4</td>
+                    </tr>
+                    </tbody>
+                </table>
+            </div>
+        </section>
+    </main>
+
+    <th:block th:replace="~{fragments/footer :: footerFragment}"></th:block>
+</body>
+</html>

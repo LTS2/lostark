@@ -25,9 +25,20 @@ header {
     align-items: center;
 }
 
-h1 {
-    font-size: 2rem;
+.title-link {
+    text-decoration: none;
+    color: inherit;
 }
+
+.title-link h1 {
+    display: inline-block;
+    transition: transform 0.3s ease;
+}
+
+.title-link h1:hover {
+    transform: translateY(-5px);
+}
+
 
 .auth-buttons {
     display: flex;
@@ -52,7 +63,7 @@ h1 {
     color: #fff;
 }
 
-main {
+#main-con{
     flex: 1;
     display: flex;
     justify-content: center;
@@ -69,13 +80,13 @@ main {
     display: flex;
     justify-content: center;
     align-items: center;
-    padding: 20px;
+    padding: 30px;
     background-color: #fff;
     border: 2px solid #007BFF;
     border-radius: 10px;
     text-decoration: none;
     color: #007BFF;
-    font-size: 1.2rem;
+    font-size: 1.3rem;
     font-weight: bold;
     text-align: center;
     transition: background-color 0.3s ease, color 0.3s ease;
