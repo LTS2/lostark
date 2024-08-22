@@ -18,19 +18,7 @@
 <!-- content script -->
 <!--	<th:block layout:fragment="script"></th:block>-->
 <body>
-    <header>
-        <div class="header-inner">
-            <h1>너만오면고</h1>
-            <div class="auth-buttons">
-                <a href="login.html" class="auth-item">
-                    <i class="fas fa-sign-in-alt"></i> 로그인
-                </a>
-                <a href="signup.html" class="auth-item">
-                    <i class="fas fa-user-plus"></i> 회원가입
-                </a>
-            </div>
-        </div>
-    </header>
+    <th:block th:replace="~{fragments/header :: headerFragment}"></th:block>
 
     <main>
         <div class="menu-container">
@@ -41,8 +29,6 @@
         </div>
     </main>
 
-    <footer>
-        <p>© 2024 안병우 Website. All Rights Reserved.</p>
-    </footer>
+    <th:block th:replace="~{fragments/footer :: footerFragment}"></th:block>
 </body>
 </html>
