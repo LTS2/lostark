@@ -1,69 +1,17 @@
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
 
 <!--headerFragment 선언-->
-<header th:fragment="headerFragment" class="header-container">
-
-	<a href="/">
-		<div class="header-img-container">
-			<img src="/images/bee.png" class="header-logo">
-		</div>
-	</a>
-	<div class="header-second-container">
-		<!-- 전적 검색 폼 -->
-		<div class="header-search-container">
-			<form id="header-search-form">
-				<select>
-					<option value="korea">Korea</option>
-					<option value="north-america">North America</option>
-					<option value="europe-west">Europe West</option>
-					<option value="europe-nordic-ease">Europe Nordic & East</option>
-					<option value="oceania">Oceania</option>
-					<option value="japan">Japan</option>
-					<option value="brazil">brazil</option>
-					<option value="las">LAS</option>
-					<option value="lan">LAN</option>
-					<option value="russia">Russia</option>
-					<option value="turkiye">Turkiye</option>
-					<option value="singapore">Singapore</option>
-					<option value="philippines">Philippines</option>
-					<option value="taiwan">Taiwan</option>
-					<option value="vietnam">Vietnam</option>
-					<option value="thailand">Thailand</option>
-				</select>
-				<input type="text" id="header-summoner-name" placeholder="소환사명 입력" class="header-search-bar" />
-				<input type="submit" value="검색" class="header-click-bar" />
-			</form>
-		</div>
-
-		<!-- 네비게이터 폼 -->
-		<div class="header-navigator-container">
-			<div class="header-navigator">
-				<ul class="header-nav">
-					<li class="">
-						<a href="/">홈</a>
-					</li>
-
-					<li class="">
-						<a href="/">챔피언 분석</a>
-					</li>
-
-					<li class="">
-						<a href="/">통계</a>
-					</li>
-
-					<li class="">
-						<a href="/">랭킹</a>
-					</li>
-
-					<li class="">
-						<a href="/">커뮤니티</a>
-					</li>
-
-				</ul>
-			</div>
+<header th:fragment="headerFragment">
+	<div class="header-inner">
+		<h1>너만오면고</h1>
+		<div class="auth-buttons">
+			<a href="#" class="auth-item">
+				<i class="fas fa-sign-in-alt"></i> 로그인
+			</a>
+			<a href="#" class="auth-item">
+				<i class="fas fa-user-plus"></i> 회원가입
+			</a>
 		</div>
 	</div>
-
-
 </header>
 </html>
