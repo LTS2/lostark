@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
+<head>
+    <meta charset="UTF-8"/>
+    <title>thymeleaf layout</title>
+    <meta name="viewport"
+          content="width=device-width, maximum-scale=1.0, minimum-scale=1, user-scalable=yes,initial-scale=1.0"/>
+    <!-- content script -->
+    <th:block th:replace="~{fragments/config::configFragment}"></th:block>
+    <link rel="stylesheet" th:href="@{/css/my-page/guestbook.css}">
+
+</head>
+<!--	<th:block layout:fragment="css"></th:block>-->
+
+
+<!-- content script -->
+<!--	<th:block layout:fragment="script"></th:block>-->
+<body>
+    <th:block th:replace="~{fragments/header :: headerFragment}"></th:block>
+
+    <main style="margin-top: 20px;" id="side-con">
+        <th:block th:replace="~{fragments/sidebar :: sideBarFragment}"></th:block>
+        <section class="content" id="guestbook-content">
+            <div>
+                <h1>방명록</h1>
+                <br>
+                <p>소중한 메세지를 담아둡니다.</p>
+            </div>
+            <br>
+            <br>
+            <div class="dashboard-write">
+                <div class="guest-textarea">
+                    <label for="guestbook-comment" class="screen_out">방명록 작성</label>
+                    <textarea id="guestbook-comment" placeholder="내용을 입력하세요." class="guest-textarea-input"></textarea>
+                    <div class="guest-submit-con">
+                        <button type="submit" class="guest-submit-btn">등록</button>
+                    </div>
+                </div>
+            </div>
+
+            <div class="guestbook-total">
+                <span class="tt_txt_g">방명록</span>
+                <span class="tt_num_g">2</span>
+            </div>
+            <div class="guestbook-list">
+                <ul>
+                    <li>
+                        <strong>유저이</strong>
+                        <p>놀러와씀다!</p>
+                    </li>
+                    <li>
+                        <strong>유저일</strong>
+                        <p>첫 방명록 남겨요 ㅎㅎ</p>
+                    </li>
+                </ul>
+            </div>
+        </section>
+    </main>
+
+    <th:block th:replace="~{fragments/footer :: footerFragment}"></th:block>
+</body>
+</html>
