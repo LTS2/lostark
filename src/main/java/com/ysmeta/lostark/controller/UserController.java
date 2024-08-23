@@ -5,6 +5,7 @@ import com.ysmeta.lostark.service.UserService;
 import jakarta.servlet.http.HttpSession;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.HashMap;
@@ -32,14 +33,22 @@ public class UserController {
     }
 
     @PostMapping("/login")
-    public String login(@ModelAttribute UserEntity user, HttpSession session) {
-        return userService.login(user.getUsername(), user.getPassword())
+    public String login(@ModelAttribute UserEntity user, HttpSession session, Model model) {
+        boolean isValidUser = userService.login(user.getUsername(), user.getPassword())
                 .map(loggedInUser -> {
                     session.setAttribute("user", loggedInUser); // 로그인된 사용자 정보를 세션에 저장
-                    return "redirect:/"; // 로그인 후 홈 페이지로 리다이렉트
+                    return true;
                 })
-                .orElse("redirect:/login?error=true"); // 로그인 실패 시 로그인 페이지로 리다이렉트, 에러 쿼리 파라미터 추가
+                .orElse(false);
+
+        if (isValidUser) {
+            return "redirect:/"; // 로그인 후 홈 페이지로 리다이렉트
+        } else {
+            model.addAttribute("loginError", true); // 로그인 실패 시 에러 플래그 설정
+            return "/auth/login"; // 로그인 페이지로 리턴
+        }
     }
+
 
     @GetMapping("/check-username")
     public ResponseEntity<Map<String, Boolean>> checkUsername(@RequestParam String username) {

@@ -11,6 +11,7 @@
     <th:block th:replace="~{fragments/config::configFragment}"></th:block>
     <!-- Custom CSS for Login Page -->
     <link rel="stylesheet" href="/css/auth/login.css"/>
+    <script src="/js/auth/login.js"></script>
 </head>
 
 <body>
@@ -20,6 +21,9 @@
 <main id="main-con">
     <div class="login-container">
         <h2>로그인</h2>
+        <div id="login-error" th:if="${loginError}" style="color: red;">
+            로그인 실패: 아이디나 비밀번호를 확인해 주세요.
+        </div>
         <form th:action="@{/api/user/login}" method="post">
             <div class="form-group">
                 <label for="username">아이디</label>
