@@ -1,21 +1,24 @@
 package com.ysmeta.lostark.entity;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.Id;
+import jakarta.persistence.*;
+import lombok.Getter;
+import lombok.Setter;
 
-/**
- * @author : ejum
- * @fileName : UserEntity
- * @since : 8/22/24
- */
+@Getter
+@Setter
 @Entity
+@Table(name = "user")
 public class UserEntity {
 
-
+    // Getters and Setters
     @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
+
     private String username;
+    private String email;
     private String password;
-//    private CharacterEntity character;
+    private String picture;
+
 
 }
