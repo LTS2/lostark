@@ -1,10 +1,110 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
 <head>
-    <meta charset="UTF-8">
-    <title>Title</title>
+    <meta charset="UTF-8"/>
+    <title>Search Filter</title>
+    <meta name="viewport" content="width=device-width, maximum-scale=1.0, minimum-scale=1.0, initial-scale=1.0"/>
+    <!-- content script -->
+    <th:block th:replace="~{fragments/config::configFragment}"></th:block>
+    <link rel="stylesheet" href="/css/recruitment/recruitment.css"/>
 </head>
-<body>
 
+<body>
+<!-- Header -->
+<th:block th:replace="~{fragments/header :: headerFragment}"></th:block>
+
+<main style="margin-top: 20px;" id="side-con">
+
+    <!-- Main Content -->
+    <section class="content" id="activity-content">
+        <div>
+            <h1>검색 조건 입력하기</h1>
+        </div>
+        <br>
+        <br>
+        <div class="filter-box">
+            <form>
+                <!-- 첫 번째 줄 -->
+                <div class="form-row">
+                    <!-- 목표 드롭다운 -->
+                    <div class="form-group">
+                        <label for="goal">목표</label>
+                        <select id="goal" name="goal">
+                            <option value="goal1">에기르 (하드1680)</option>
+                            <option value="goal2">에기르 (노말1660)</option>
+                            <option value="goal3">베히모스 (노말1640)</option>
+                            <option value="goal4">카멘 (하드1630)</option>
+                            <option value="goal5">카멘 (노말1610)</option>
+                            <option value="goal6">상아탑 (하드1620)</option>
+                            <option value="goal7">상아탑 (노말1600)</option>
+                            <option value="goal8">카양겔 (하드1580)</option>
+                            <option value="goal9">카양겔 (노말1540)</option>
+                        </select>
+                    </div>
+                    <!-- 요일 드롭다운 -->
+                    <div class="form-group">
+                        <label for="day">요일</label>
+                        <select id="day" name="day">
+                            <option value="monday">월요일</option>
+                            <option value="tuesday">화요일</option>
+                            <option value="wednesday">수요일</option>
+                            <option value="thursday">목요일</option>
+                            <option value="friday">금요일</option>
+                            <option value="saturday">토요일</option>
+                            <option value="sunday">일요일</option>
+                        </select>
+                    </div>
+                    <!-- 시간 드롭다운 -->
+                    <div class="form-group">
+                        <label for="time">시간</label>
+                        <select id="time" name="time">
+
+                        </select>
+                    </div>
+                </div>
+
+                <!-- 두 번째 줄 -->
+                <div class="form-row">
+                    <!-- 도전 시간 드롭다운 -->
+                    <div class="form-group">
+                        <label for="challengeTime">도전 시간</label>
+                        <select id="challengeTime" name="challengeTime">
+                            <option value="short">짧음</option>
+                            <option value="medium">보통</option>
+                            <option value="long">길음</option>
+                        </select>
+                    </div>
+                    <!-- 숙련도 드롭다운 -->
+                    <div class="form-group">
+                        <label for="proficiency">숙련도</label>
+                        <select id="proficiency" name="proficiency">
+                            <option value="beginner">초보</option>
+                            <option value="intermediate">중급</option>
+                            <option value="advanced">고급</option>
+                        </select>
+                    </div>
+                    <!-- 검색하기 버튼 -->
+                    <div class="form-group">
+                        <button type="submit" class="search-button">검색하기</button>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </section>
+</main>
+<script>
+    const select = document.getElementById('time');
+    for (let hour = 0; hour <= 24; hour++) {
+        const value = hour === 24 ? '24:00' : (hour < 10 ? '0' + hour : hour) + ':00';
+        const option = document.createElement('option');
+        option.value = value;
+        option.textContent = value;
+        select.appendChild(option);
+    }
+</script>
+<!-- Footer -->
+<th:block th:replace="~{fragments/footer :: footerFragment}"></th:block>
 </body>
 </html>
