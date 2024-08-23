@@ -17,9 +17,15 @@ import org.springframework.web.bind.annotation.RequestMapping;
 @Controller
 public class HomeController {
 
+    @ModelAttribute("loggedIn")
+    public boolean addLoggedInAttribute(HttpSession session) {
+        return session.getAttribute("user") != null;
+    }
 
     @RequestMapping("/")
-    public String home () {
+    public String home (HttpSession session, Model model) {
+        boolean loggedIn = session.getAttribute("user") != null;
+        model.addAttribute("loggedIn", loggedIn);
         return "/main";
     }
 
