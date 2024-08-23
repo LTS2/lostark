@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
+<head>
+    <meta charset="UTF-8"/>
+    <title>thymeleaf layout</title>
+    <meta name="viewport"
+          content="width=device-width, maximum-scale=1.0, minimum-scale=1, user-scalable=yes,initial-scale=1.0"/>
+    <!-- content script -->
+    <th:block th:replace="~{fragments/config::configFragment}"></th:block>
+    <link rel="stylesheet" th:href="@{/css/my-page/regist.css}">
+</head>
+<!--	<th:block layout:fragment="css"></th:block>-->
+
+
+<!-- content script -->
+<!--	<th:block layout:fragment="script"></th:block>-->
+<body>
+    <th:block th:replace="~{fragments/header :: headerFragment}"></th:block>
+
+    <main style="margin-top: 20px;" id="side-con">
+        <th:block th:replace="~{fragments/sidebar :: sideBarFragment}"></th:block>
+        <section class="content" id="regist-content">
+            <div>
+                <h1>캐릭터 등록</h1>
+                <br>
+                <p>사용자명으로 캐릭터를 등록해 보세요</p>
+            </div>
+            <br>
+            <br>
+            <div class="dashboard-regist">
+                <form action="/register" method="post">
+                    <label for="username">사용자명:</label>
+                    <input type="text" id="username" name="username" placeholder="사용자명을 입력하세요" required>
+                    <br><br>
+                    <div class="regist-submit-con">
+                        <button type="submit">등록하기</button>
+                    </div>
+                </form>
+            </div>
+        </section>
+    </main>
+
+    <th:block th:replace="~{fragments/footer :: footerFragment}"></th:block>
+</body>
+</html>
