@@ -26,4 +26,8 @@ public class MyPageController {
         return "/my-page/guestbook";
     }
 
+    @GetMapping("/regist")
+    public String regist() {
+        return "/my-page/regist";
+    }
  }
