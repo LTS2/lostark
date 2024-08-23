@@ -26,7 +26,11 @@ public class UserService {
         userRepository.save(user);
     }
 
-    public Optional<UserEntity> login(String email, String password) {
-        return userRepository.findByEmailAndPassword(email, password);
+    public Optional<UserEntity> login(String username, String password) {
+        return userRepository.findByUsernameAndPassword(username, password);
+    }
+
+    public boolean existsByUsername(String username) {
+        return userRepository.existsByUsername(username);
     }
 }

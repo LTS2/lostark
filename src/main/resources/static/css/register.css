@@ -1,3 +1,4 @@
+/* Custom CSS for Register Page */
 body {
     background-color: #f7f8fa;
     font-family: 'Arial', sans-serif;
@@ -13,7 +14,7 @@ body {
     padding: 40px;
     width: 100%;
     max-width: 400px;
-    margin: 50px auto; /* Center the registration box */
+    margin: 50px auto;
     text-align: center;
 }
 
@@ -86,7 +87,39 @@ p a:hover {
     color: #0056b3;
 }
 
-/* Add some padding to the main content area */
 main {
     padding: 20px;
+}
+
+/* Custom CSS for Username Group */
+.username-group {
+    display: flex;
+    align-items: center;
+}
+
+.username-group input {
+    flex: 1;
+    padding: 10px;
+    border-radius: 5px;
+    border: 1px solid #ddd;
+    font-size: 16px;
+}
+
+.username-group button {
+    width: 50px;
+    height: 40px;
+    padding: 0;
+    font-size: 12px;
+    background-color: #007bff;
+    border: none;
+    border-radius: 5px;
+    color: white;
+    cursor: pointer;
+    transition: background-color 0.3s;
+    text-align: center;
+    line-height: 10px;
+}
+
+.username-group button:hover {
+    background-color: #0056b3;
 }

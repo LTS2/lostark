@@ -1,17 +1,22 @@
-<html lang="en" xmlns:th="http://www.thymeleaf.org">
-
-<!--headerFragment 선언-->
+<!DOCTYPE html>
+<html lang="ko" xmlns:th="http://www.thymeleaf.org">
 <header th:fragment="headerFragment">
 	<div class="header-inner">
 		<a href="/" class="title-link">
 			<h1>너만오면고</h1>
 		</a>
-		<div class="auth-buttons">
+		<div class="auth-buttons" th:if="${loggedIn == false}">
 			<a href="/login" class="auth-item">
 				<i class="fas fa-sign-in-alt"></i> 로그인
 			</a>
 			<a href="/register" class="auth-item">
 				<i class="fas fa-user-plus"></i> 회원가입
+			</a>
+		</div>
+
+		<div class="auth-buttons" th:if="${loggedIn == true}">
+			<a href="/logout" class="auth-item">
+				<i class="fas fa-sign-out-alt"></i> 로그아웃
 			</a>
 		</div>
 	</div>
