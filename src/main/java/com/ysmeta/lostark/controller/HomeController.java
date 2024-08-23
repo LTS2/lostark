@@ -25,12 +25,12 @@ public class HomeController {
 
     @GetMapping("/login")
     public String login(){
-        return "/login";
+        return "/auth/login";
     }
 
     @GetMapping("/register")
     public String register(){
-        return "/register";
+        return "/auth/register";
     }
     @GetMapping("/logout")
     public String logout(HttpSession session) {
