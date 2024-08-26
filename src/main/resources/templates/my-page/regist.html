@@ -51,6 +51,28 @@
                 <p>캐릭터를 찾을 수 없습니다.</p>
             </div>
         </div>
+
+        <!-- 캐릭터 정보 표 -->
+        <div th:if="${characters != null && !characters.isEmpty()}" class="dashboard-section">
+            <table class="dashboard-table">
+                <thead>
+                <tr>
+                    <th>서버명</th>
+                    <th>클래스 이름</th>
+                    <th>캐릭터명</th>
+                    <th>아이템 최대 레벨</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr th:each="character : ${characters}">
+                    <td th:text="${character.serverName}"></td>
+                    <td th:text="${character.characterClassName}"></td>
+                    <td th:text="${character.characterName}"></td>
+                    <td th:text="${character.itemMaxLevel}"></td>
+                </tr>
+                </tbody>
+            </table>
+        </div>
     </section>
 </main>
 

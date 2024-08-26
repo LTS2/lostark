@@ -4,6 +4,7 @@ import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.ysmeta.lostark.dto.CharacterDTO;
 import com.ysmeta.lostark.entity.CharacterEntity;
+import com.ysmeta.lostark.entity.UserEntity;
 import com.ysmeta.lostark.repository.CharacterRepository;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpEntity;
@@ -37,6 +38,49 @@ public class CharacterService {
         this.objectMapper = objectMapper;
     }
 
+    public CharacterDTO getCharacterByUsername(String username) {
+        try {
+            List<CharacterEntity> characters = findCharacterByUsername(username);
+
+            if (characters.isEmpty()) {
+                return null;
+            }
+
+            // 사용자가 입력한 username과 동일한 캐릭터를 찾기
+            CharacterEntity matchedCharacter = characters.stream()
+                    .filter(character -> character.getCharacterName().equalsIgnoreCase(username))
+                    .findFirst()
+                    .orElse(null);
+
+            if (matchedCharacter != null) {
+                return new CharacterDTO(matchedCharacter);
+            }
+
+        } catch (IOException e) {
+            log.error("Error retrieving character: {}", e.getMessage());
+        }
+        return null;
+    }
+
+    public CharacterDTO confirmCharacter(String characterName, UserEntity loggedInUser) {
+        try {
+            List<CharacterEntity> characters = findCharacterByUsername(loggedInUser.getUsername());
+
+            CharacterEntity matchedCharacter = characters.stream()
+                    .filter(character -> character.getCharacterName().equalsIgnoreCase(characterName))
+                    .findFirst()
+                    .orElse(null);
+
+            if (matchedCharacter != null) {
+                return new CharacterDTO(matchedCharacter);
+            }
+
+        } catch (IOException e) {
+            log.error("Error confirming character: {}", e.getMessage());
+        }
+        return null;
+    }
+
     public List<CharacterEntity> findCharacterByUsername(String username) throws IOException {
         String url = "https://developer-lostark.game.onstove.com/characters/";
         String bearer = "Bearer ";
@@ -56,16 +100,13 @@ public class CharacterService {
         // JSON 응답을 DTO 목록으로 변환
         String responseBody = responseEntity.getBody();
 
-        // JSON 배열을 List<CharacterDTO>로 변환
         List<CharacterDTO> characterDTOList = objectMapper.readValue(
                 responseBody,
                 objectMapper.getTypeFactory().constructCollectionType(List.class, CharacterDTO.class)
         );
 
-        // DTO를 엔티티로 변환하여 저장
         return convertDTOsToEntities(characterDTOList);
     }
-
 
     private List<CharacterEntity> convertDTOsToEntities(List<CharacterDTO> dtos) {
         return dtos.stream().map(dto -> {
@@ -76,8 +117,22 @@ public class CharacterService {
             entity.setCharacterClassName(dto.getCharacterClassName());
             entity.setItemAvgLevel(dto.getItemAvgLevel());
             entity.setItemMaxLevel(dto.getItemMaxLevel());
-            // 사용자 정보는 실제 구현에서 설정해야 함
             return entity;
         }).toList();
+    }
+
+    public void saveCharacterForUser(CharacterEntity character, UserEntity user) {
+        // 캐릭터와 유저 간의 연관 설정
+        character.setUser(user);
+        character.setConfirmed(true); // 필요시, 확인 여부를 설정
+        characterRepository.save(character);
+    }
+
+        public List<CharacterEntity> getCharactersByUserId(Long userId) {
+            return characterRepository.findByUserId(userId);
+        }
+
+    public void deleteCharacter(Long characterId) {
+        characterRepository.deleteById(characterId);
     }
 }

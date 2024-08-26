@@ -67,11 +67,4 @@ public class RecruitmentController {
         response.put("loggedIn", isLoggedIn);
         return ResponseEntity.ok(response);
     }
-
-
-
-
-
-
-
 }
