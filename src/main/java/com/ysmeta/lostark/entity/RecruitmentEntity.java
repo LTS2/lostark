@@ -3,6 +3,8 @@ package com.ysmeta.lostark.entity;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
+import java.time.LocalDate;
+import java.time.LocalDateTime;
 
 /**
  * @author : ejum
@@ -12,11 +14,15 @@ import lombok.Setter;
 @Entity
 @Getter
 @Setter
+@Table(name = "recruitment")
 public class RecruitmentEntity {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
+
+    @Column(nullable = false)
+    private String title;
 
     @Column(nullable = false)
     private String goal;
@@ -31,14 +37,20 @@ public class RecruitmentEntity {
     private String challengeTime;
 
     @Column(nullable = false)
-    private String proficiency;
+    private LocalDate startDate; // 출발 날짜 추가
 
     @Column(nullable = false)
-    private String title;
+    private String proficiency;
+
+    @Column(name = "created_date")
+    private LocalDateTime createdDate;
 
     @ManyToOne
-    @JoinColumn(name = "user_id", nullable = false)
+    @JoinColumn(name = "user_id")
     private UserEntity user;
 
-
+    @PrePersist
+    public void prePersist() {
+        this.createdDate = LocalDateTime.now();
+    }
 }

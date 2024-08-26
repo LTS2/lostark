@@ -5,6 +5,7 @@ import com.ysmeta.lostark.repository.RecruitmentRepository;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Optional;
 
 /**
  * @author : ejum
@@ -28,5 +29,13 @@ public class RecruitmentService {
 
     public void save(RecruitmentEntity recruitmentEntity) {
         recruitmentRepository.save(recruitmentEntity);
+    }
+
+    public List<RecruitmentEntity> findAllByOrderByCreatedDateDesc() {
+        return recruitmentRepository.findAllByOrderByCreatedDateDesc();
+    }
+
+    public Optional<RecruitmentEntity> findById(Long id) {
+        return recruitmentRepository.findById(id);
     }
 }

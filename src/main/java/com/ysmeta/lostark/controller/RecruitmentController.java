@@ -10,9 +10,12 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
+import java.time.DayOfWeek;
+import java.time.LocalDate;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Optional;
 
 /**
  * @author : ejum
@@ -32,8 +35,20 @@ public class RecruitmentController {
     }
 
     @GetMapping
-    public String recruitment(Model model){
-        List<RecruitmentEntity> recruitments = recruitmentService.findAll();
+    public String recruitment(Model model) {
+        // 현재 날짜를 기준으로 필터링
+        LocalDate today = LocalDate.now();
+        LocalDate startOfWeek = today.with(DayOfWeek.MONDAY);
+        LocalDate endOfWeek = startOfWeek.plusDays(6);
+
+        // 현재 날짜와 수요일 이전의 모집글 필터링
+        // 최신 순으로 모든 모집글 가져오기
+        List<RecruitmentEntity> recruitments = recruitmentService.findAllByOrderByCreatedDateDesc();
+        recruitments.removeIf(recruitment ->
+                recruitment.getStartDate().isBefore(today) ||
+                        (recruitment.getStartDate().isBefore(startOfWeek) && recruitment.getDay().equals("수요일"))
+        );
+
         model.addAttribute("recruitments", recruitments);
         return "recruitment/recruitment";
     }
@@ -66,5 +81,16 @@ public class RecruitmentController {
         Map<String, Boolean> response = new HashMap<>();
         response.put("loggedIn", isLoggedIn);
         return ResponseEntity.ok(response);
+    }
+
+    // 모집글 상세 페이지
+    @GetMapping("/details/{id}")
+    public String getRecruitmentDetails(@PathVariable Long id, Model model) {
+        Optional<RecruitmentEntity> recruitment = recruitmentService.findById(id);
+        if (recruitment == null) {
+            return "redirect:/api/recruitment"; // 모집글이 없는 경우 목록 페이지로 리다이렉트
+        }
+        model.addAttribute("recruitment", recruitment);
+        return "recruitment/recruitmentDetails"; // 상세 페이지로 이동
     }
 }

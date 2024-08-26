@@ -4,11 +4,10 @@
       xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
 <head>
     <meta charset="UTF-8"/>
-    <title>너만오면고</title>
+    <title>검색 조건 입력하기</title>
     <meta name="viewport" content="width=device-width, maximum-scale=1.0, minimum-scale=1.0, initial-scale=1.0"/>
-    <!-- content script -->
     <th:block th:replace="~{fragments/config::configFragment}"></th:block>
-    <link rel="stylesheet" href="/css/recruitment/recruitment.css"/>
+    <link rel="stylesheet" href="/css/recruitment/recruitment.css"/> <!-- 스타일 시트 경로 -->
 </head>
 
 <body>
@@ -25,7 +24,7 @@
         <br>
         <br>
         <div class="filter-box">
-            <form id="filterForm">
+            <form id="filterForm" action="/api/recruitment/filter" method="get">
                 <!-- 첫 번째 줄 -->
                 <div class="form-row">
                     <!-- 목표 드롭다운 -->
@@ -33,7 +32,6 @@
                         <label for="goal">목표</label>
                         <select id="goal" name="goal">
                             <option value="">전체</option>
-                            <!-- 목표 옵션들 추가 -->
                             <option value="에기르 (하드1680)">에기르 (하드1680)</option>
                             <option value="에기르 (노말1660)">에기르 (노말1660)</option>
                             <option value="베히모스 (노말1640)">베히모스 (노말1640)</option>
@@ -64,6 +62,7 @@
                         <label for="time">시간</label>
                         <select id="time" name="time">
                             <option value="">전체</option>
+                            <!-- 시간 옵션들 추가 -->
                         </select>
                     </div>
                 </div>
@@ -90,13 +89,22 @@
                             <option value="고급">고급</option>
                         </select>
                     </div>
-                    <!-- 검색하기 버튼 -->
+                    <!-- 출발 날짜 입력 필드 -->
                     <div class="form-group">
+                        <label for="startDate">출발 날짜</label>
+                        <input type="date" id="startDate" name="startDate"/>
+                    </div>
+                </div>
+
+                <!-- 버튼들 -->
+                <div class="form-row">
+                    <!-- 검색하기 버튼 -->
+                    <div class="form-group full-width">
                         <button type="submit" class="search-button">검색하기</button>
                     </div>
 
                     <!-- 모집글 만들기 버튼 -->
-                    <div class="form-group">
+                    <div class="form-group full-width">
                         <button type="button" id="createPostButton" class="create-post-button">모집글 만들기</button>
                     </div>
                 </div>
@@ -105,7 +113,7 @@
 
         <!-- 하위 박스들 -->
         <div class="box-container">
-            <div th:each="recruitment : ${recruitments}" class="box">
+            <div th:each="recruitment : ${recruitments}" class="box" th:data-url="@{/api/recruitment/details/{id}(id=${recruitment.id})}">
                 <div class="box-title" th:text="${recruitment.title}"></div>
                 <div class="box-details">
                     <p><strong>목표:</strong> <span th:text="${recruitment.goal}"></span></p>
@@ -113,6 +121,7 @@
                     <p><strong>요일:</strong> <span th:text="${recruitment.day}"></span></p>
                     <p><strong>숙련도:</strong> <span th:text="${recruitment.proficiency}"></span></p>
                     <p><strong>도전 시간:</strong> <span th:text="${recruitment.challengeTime}"></span></p>
+                    <p><strong>출발 날짜:</strong> <span th:text="${recruitment.startDate}"></span></p>
                 </div>
             </div>
         </div>
@@ -120,7 +129,6 @@
 </main>
 
 <script src="/js/recruitment/recruitment.js"></script>
-
 
 <!-- Footer -->
 <th:block th:replace="~{fragments/footer :: footerFragment}"></th:block>

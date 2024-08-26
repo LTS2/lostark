@@ -5,7 +5,6 @@
     border: 1px solid #ccc;
     padding: 20px;
     width: 800px; /* 가로 폭 800px */
-    height: 300px; /* 세로 폭 500px */
     margin: auto;
     box-sizing: border-box;
     display: flex;
@@ -31,15 +30,10 @@
 
 .form-group input,
 .form-group select,
-.form-group textarea,
 .form-group button {
     width: 100%;
     padding: 8px;
     box-sizing: border-box;
-}
-
-textarea {
-    resize: vertical; /* 사용자가 세로로 크기를 조정할 수 있도록 */
 }
 
 /* 제출 버튼 스타일 */
@@ -61,7 +55,13 @@ textarea {
     gap: 20px; /* 항목 간의 간격 */
 }
 
+.form-row .form-group {
+    flex: 1; /* 항목을 동일한 폭으로 설정 */
+    min-width: 200px; /* 최소 폭 설정 */
+}
+
 /* 시간 드롭다운 스타일 */
+#startTime,
 #time {
     padding: 8px;
 }
