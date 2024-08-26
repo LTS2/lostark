@@ -58,5 +58,16 @@ public class UserController {
         return ResponseEntity.ok(response);
     }
 
+    @GetMapping("/check-login")
+    public ResponseEntity<Map<String, Boolean>> checkLogin(HttpSession session) {
+        UserEntity user = (UserEntity) session.getAttribute("user");
+        boolean isLoggedIn = (user != null);
+        Map<String, Boolean> response = new HashMap<>();
+        response.put("loggedIn", isLoggedIn);
+        return ResponseEntity.ok(response);
+    }
+
+
 
 }
+

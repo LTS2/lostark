@@ -4,45 +4,56 @@
       xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
 <head>
     <meta charset="UTF-8"/>
-    <title>thymeleaf layout</title>
+    <title>캐릭터 등록</title>
     <meta name="viewport"
-          content="width=device-width, maximum-scale=1.0, minimum-scale=1, user-scalable=yes,initial-scale=1.0"/>
+          content="width=device-width, maximum-scale=1.0, minimum-scale=1, user-scalable=yes, initial-scale=1.0"/>
     <!-- content script -->
     <th:block th:replace="~{fragments/config::configFragment}"></th:block>
     <link rel="stylesheet" th:href="@{/css/my-page/regist.css}">
     <link rel="stylesheet" th:href="@{/css/my-page/activity.css}">
 </head>
-<!--	<th:block layout:fragment="css"></th:block>-->
-
-
-<!-- content script -->
-<!--	<th:block layout:fragment="script"></th:block>-->
 <body>
-    <th:block th:replace="~{fragments/header :: headerFragment}"></th:block>
+<th:block th:replace="~{fragments/header :: headerFragment}"></th:block>
 
-    <main style="margin-top: 20px;" id="side-con">
-        <th:block th:replace="~{fragments/sidebar :: sideBarFragment}"></th:block>
-        <section class="content" id="regist-content">
-            <div>
-                <h1>캐릭터 등록</h1>
-                <br>
-                <p>사용자명으로 캐릭터를 등록해 보세요</p>
-            </div>
+<main style="margin-top: 20px;" id="side-con">
+    <th:block th:replace="~{fragments/sidebar :: sideBarFragment}"></th:block>
+    <section class="content" id="regist-content">
+        <div>
+            <h1>캐릭터 등록</h1>
             <br>
-            <br>
-            <div class="dashboard-regist">
-                <form action="/register" method="post">
-                    <label for="username">사용자명:</label>
-                    <input type="text" id="username" name="username" placeholder="사용자명을 입력하세요" required>
-                    <br><br>
-                    <div class="regist-submit-con">
-                        <button type="submit">등록하기</button>
-                    </div>
+            <p>사용자명으로 캐릭터를 등록해 보세요</p>
+        </div>
+        <br>
+        <br>
+        <div class="dashboard-regist">
+            <!-- 폼 -->
+            <form action="#" th:action="@{/api/user/lostArk/register}" method="post">
+                <label for="username">사용자명:</label>
+                <input type="text" id="username" name="username" placeholder="사용자명을 입력하세요" required>
+                <br><br>
+                <div class="regist-submit-con">
+                    <button type="submit">조회하기</button>
+                </div>
+            </form>
+
+            <!-- 결과 표시 영역 -->
+            <div th:if="${character != null}" class="result">
+                <p><strong>서버명:</strong> <span th:text="${character.serverName}"></span></p>
+                <p><strong>아이템 최대 레벨:</strong> <span th:text="${character.itemMaxLevel}"></span></p>
+                <p><strong>레벨:</strong> <span th:text="${character.characterLevel}"></span></p>
+                <p><strong>닉네임:</strong> <span th:text="${character.characterName}"></span></p>
+                <form action="#" th:action="@{/api/user/lostArk/confirm}" method="post">
+                    <input type="hidden" name="characterName" th:value="${character.characterName}"/>
+                    <button type="submit">이 캐릭터 맞습니까?</button>
                 </form>
             </div>
-        </section>
-    </main>
+            <div th:if="${character == null}" class="error">
+                <p>캐릭터를 찾을 수 없습니다.</p>
+            </div>
+        </div>
+    </section>
+</main>
 
-    <th:block th:replace="~{fragments/footer :: footerFragment}"></th:block>
+<th:block th:replace="~{fragments/footer :: footerFragment}"></th:block>
 </body>
 </html>

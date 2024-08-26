@@ -28,10 +28,6 @@ public class TestController {
         return result;
     }
 
-    @PostMapping("/login")
-    public String login(){
-        return "";
-    }
 
 
 

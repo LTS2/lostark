@@ -33,4 +33,8 @@ public class UserService {
     public boolean existsByUsername(String username) {
         return userRepository.existsByUsername(username);
     }
+
+    public UserEntity findById(Long id) {
+        return userRepository.findById(id).orElse(null); // UserRepository에서 UserEntity를 조회
+    }
 }

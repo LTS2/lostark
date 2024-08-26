@@ -1,0 +1,67 @@
+/* recruitment.css */
+
+/* 전체 컨테이너 스타일 */
+.form-container {
+    border: 1px solid #ccc;
+    padding: 20px;
+    width: 800px; /* 가로 폭 800px */
+    height: 300px; /* 세로 폭 500px */
+    margin: auto;
+    box-sizing: border-box;
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    overflow-y: auto; /* 내용이 넘칠 경우 스크롤 표시 */
+}
+
+/* 폼 그룹 스타일 */
+.form-group {
+    margin-top: 10px;
+}
+
+.form-group.full-width {
+    width: 100%; /* 전체 폭을 사용하도록 설정 */
+}
+
+.form-group label {
+    display: block;
+    margin-bottom: 8px;
+    font-weight: bold;
+}
+
+.form-group input,
+.form-group select,
+.form-group textarea,
+.form-group button {
+    width: 100%;
+    padding: 8px;
+    box-sizing: border-box;
+}
+
+textarea {
+    resize: vertical; /* 사용자가 세로로 크기를 조정할 수 있도록 */
+}
+
+/* 제출 버튼 스타일 */
+.submit-button {
+    background-color: #28a745;
+    color: white;
+    border: none;
+    cursor: pointer;
+    padding: 10px;
+    width: 100%;
+    margin-top: 20px;
+    font-size: 16px;
+}
+
+/* 폼 항목을 줄 바꿈하도록 설정 */
+.form-row {
+    display: flex;
+    flex-wrap: wrap; /* 줄 바꿈을 허용 */
+    gap: 20px; /* 항목 간의 간격 */
+}
+
+/* 시간 드롭다운 스타일 */
+#time {
+    padding: 8px;
+}

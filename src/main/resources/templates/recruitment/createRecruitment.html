@@ -4,11 +4,10 @@
       xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
 <head>
     <meta charset="UTF-8"/>
-    <title>너만오면고</title>
+    <title>모집글 만들기</title>
     <meta name="viewport" content="width=device-width, maximum-scale=1.0, minimum-scale=1.0, initial-scale=1.0"/>
-    <!-- content script -->
     <th:block th:replace="~{fragments/config::configFragment}"></th:block>
-    <link rel="stylesheet" href="/css/recruitment/recruitment.css"/>
+    <link rel="stylesheet" href="/css/recruitment/createRecruitment.css"/> <!-- 스타일 시트 경로 -->
 </head>
 
 <body>
@@ -18,21 +17,27 @@
 <main style="margin-top: 20px;" id="side-con">
 
     <!-- Main Content -->
-    <section class="content" id="activity-content">
+    <section class="content" id="create-post-content">
         <div>
-            <h1>검색 조건 입력하기</h1>
+            <h1>모집글 만들기</h1>
         </div>
         <br>
         <br>
-        <div class="filter-box">
-            <form id="filterForm">
-                <!-- 첫 번째 줄 -->
+        <div class="form-container">
+            <form id="createPostForm" action="/api/recruitment/create" method="post">
+                <!-- 제목 입력 -->
+                <div class="form-group full-width">
+                    <label for="title">제목</label>
+                    <input type="text" id="title" name="title" required/>
+                </div>
+
+                <!-- 두 번째 줄 -->
                 <div class="form-row">
                     <!-- 목표 드롭다운 -->
                     <div class="form-group">
                         <label for="goal">목표</label>
-                        <select id="goal" name="goal">
-                            <option value="">전체</option>
+                        <select id="goal" name="goal" required>
+                            <option value="">선택하세요</option>
                             <!-- 목표 옵션들 추가 -->
                             <option value="에기르 (하드1680)">에기르 (하드1680)</option>
                             <option value="에기르 (노말1660)">에기르 (노말1660)</option>
@@ -45,11 +50,12 @@
                             <option value="카양겔 (노말1540)">카양겔 (노말1540)</option>
                         </select>
                     </div>
+
                     <!-- 요일 드롭다운 -->
                     <div class="form-group">
                         <label for="day">요일</label>
-                        <select id="day" name="day">
-                            <option value="">전체</option>
+                        <select id="day" name="day" required>
+                            <option value="">선택하세요</option>
                             <option value="월요일">월요일</option>
                             <option value="화요일">화요일</option>
                             <option value="수요일">수요일</option>
@@ -59,68 +65,49 @@
                             <option value="일요일">일요일</option>
                         </select>
                     </div>
+
                     <!-- 시간 드롭다운 -->
                     <div class="form-group">
                         <label for="time">시간</label>
-                        <select id="time" name="time">
-                            <option value="">전체</option>
+                        <select id="time" name="time" required>
+                            <option value="">선택하세요</option>
+                            <!-- 시간 옵션들 추가 -->
                         </select>
                     </div>
-                </div>
 
-                <!-- 두 번째 줄 -->
-                <div class="form-row">
                     <!-- 도전 시간 드롭다운 -->
                     <div class="form-group">
                         <label for="challengeTime">도전 시간</label>
-                        <select id="challengeTime" name="challengeTime">
-                            <option value="">전체</option>
+                        <select id="challengeTime" name="challengeTime" required>
+                            <option value="">선택하세요</option>
                             <option value="짧음">짧음</option>
                             <option value="보통">보통</option>
                             <option value="길음">길음</option>
                         </select>
                     </div>
+
                     <!-- 숙련도 드롭다운 -->
                     <div class="form-group">
                         <label for="proficiency">숙련도</label>
-                        <select id="proficiency" name="proficiency">
-                            <option value="">전체</option>
+                        <select id="proficiency" name="proficiency" required>
+                            <option value="">선택하세요</option>
                             <option value="초보">초보</option>
                             <option value="중급">중급</option>
                             <option value="고급">고급</option>
                         </select>
                     </div>
-                    <!-- 검색하기 버튼 -->
-                    <div class="form-group">
-                        <button type="submit" class="search-button">검색하기</button>
-                    </div>
+                </div>
 
-                    <!-- 모집글 만들기 버튼 -->
-                    <div class="form-group">
-                        <button type="button" id="createPostButton" class="create-post-button">모집글 만들기</button>
-                    </div>
+                <!-- 제출 버튼 -->
+                <div class="form-group full-width">
+                    <button type="submit" class="submit-button">작성하기</button>
                 </div>
             </form>
-        </div>
-
-        <!-- 하위 박스들 -->
-        <div class="box-container">
-            <div th:each="recruitment : ${recruitments}" class="box">
-                <div class="box-title" th:text="${recruitment.title}"></div>
-                <div class="box-details">
-                    <p><strong>목표:</strong> <span th:text="${recruitment.goal}"></span></p>
-                    <p><strong>시간:</strong> <span th:text="${recruitment.time}"></span></p>
-                    <p><strong>요일:</strong> <span th:text="${recruitment.day}"></span></p>
-                    <p><strong>숙련도:</strong> <span th:text="${recruitment.proficiency}"></span></p>
-                    <p><strong>도전 시간:</strong> <span th:text="${recruitment.challengeTime}"></span></p>
-                </div>
-            </div>
         </div>
     </section>
 </main>
 
-<script src="/js/recruitment/recruitment.js"></script>
-
+<script src="/js/recruitment/createRecruitment.js"></script>
 
 <!-- Footer -->
 <th:block th:replace="~{fragments/footer :: footerFragment}"></th:block>
