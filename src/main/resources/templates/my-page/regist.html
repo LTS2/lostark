@@ -28,7 +28,7 @@
         <br>
         <div class="dashboard-regist">
             <!-- 폼 -->
-            <form id="regist-form">
+            <form id="regist-form" th:action="@{/api/user/lostArk/regist}" method="post">
                 <label for="username">사용자명:</label>
                 <input type="text" id="username" name="username" placeholder="사용자명을 입력하세요" required>
                 <br><br>
@@ -38,23 +38,29 @@
             </form>
 
             <!-- 결과 표시 영역 -->
-            <div id="result" class="result" style="display: none;">
-                <p><strong>서버명:</strong> <span id="server-name"></span></p>
-                <p><strong>아이템 최대 레벨:</strong> <span id="item-max-level"></span></p>
-                <p><strong>레벨:</strong> <span id="character-level"></span></p>
-                <p><strong>닉네임:</strong> <span id="character-name"></span></p>
-                <form id="confirm-form">
-                    <input type="hidden" id="character-name-hidden" name="characterName"/>
+            <div id="result" th:if="${character != null}" class="result">
+                <p><strong>서버명:</strong> <span th:text="${character.serverName}"></span></p>
+                <p><strong>아이템 최대 레벨:</strong> <span th:text="${character.itemMaxLevel}"></span></p>
+                <p><strong>레벨:</strong> <span th:text="${character.characterLevel}"></span></p>
+                <p><strong>닉네임:</strong> <span th:text="${character.characterName}"></span></p>
+                <form th:action="@{/api/user/lostArk/confirm}" method="post">
+                    <input type="hidden" name="characterName" th:value="${character.characterName}"/>
                     <button type="submit">이 캐릭터 맞습니까?</button>
                 </form>
             </div>
-            <div id="error" class="error" style="display: none;">
-                <p>캐릭터를 찾을 수 없습니다.</p>
+
+            <div id="error" class="error" th:if="${errorMessage != null}">
+                <p th:text="${errorMessage}"></p>
             </div>
+
+        </div>
+        <!-- 성공 메시지 영역 -->
+        <div id="success" class="success" th:if="${successMessage != null}">
+            <p th:text="${successMessage}"></p>
         </div>
 
         <!-- 캐릭터 정보 표 -->
-        <div id="characters-section" class="dashboard-section" style="display: none;">
+        <div id="characters-section" th:if="${characters != null && !characters.isEmpty()}" class="dashboard-section">
             <table class="dashboard-table">
                 <thead>
                 <tr>
@@ -62,10 +68,22 @@
                     <th>클래스 이름</th>
                     <th>캐릭터명</th>
                     <th>아이템 최대 레벨</th>
+                    <th>작업</th> <!-- 작업 열 추가 -->
                 </tr>
                 </thead>
-                <tbody id="characters-tbody">
-                <!-- 캐릭터 정보가 여기에 추가됩니다 -->
+                <tbody>
+                <tr th:each="character : ${characters}">
+                    <td th:text="${character.serverName}"></td>
+                    <td th:text="${character.characterClassName}"></td>
+                    <td th:text="${character.characterName}"></td>
+                    <td th:text="${character.itemMaxLevel}"></td>
+                    <td>
+                        <form th:action="@{/api/user/lostArk/delete}" method="post">
+                            <input type="hidden" name="characterId" th:value="${character.id}"/>
+                            <button type="submit">삭제</button>
+                        </form>
+                    </td>
+                </tr>
                 </tbody>
             </table>
         </div>

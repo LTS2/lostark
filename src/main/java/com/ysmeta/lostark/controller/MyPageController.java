@@ -37,15 +37,5 @@ public class MyPageController {
         return "/my-page/guestbook";
     }
 
-    @GetMapping("/regist")
-    public String regist(HttpSession session, Model model) {
-        UserEntity loggedInUser = (UserEntity) session.getAttribute("user");
-        if (loggedInUser == null) {
-            return "redirect:/login"; // 로그인 페이지로 리다이렉트
-        }
 
-        List<CharacterEntity> characters = characterService.getCharactersByUserId(loggedInUser.getId());
-        model.addAttribute("characters", characters);
-        return "/my-page/regist";
-    }
  }

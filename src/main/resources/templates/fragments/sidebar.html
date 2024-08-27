@@ -10,7 +10,7 @@
 
         <!-- 로그인된 사용자인 경우에만 캐릭터 등록 링크를 표시 -->
         <li th:if="${session.user != null}">
-            <a href="/mypage/regist" class="menu-link">캐릭터 등록</a>
+            <a href="/api/user/lostArk/regist" class="menu-link">캐릭터 등록</a>
         </li>
 
         <!-- 로그인되지 않은 경우 경고 메시지 표시 -->
