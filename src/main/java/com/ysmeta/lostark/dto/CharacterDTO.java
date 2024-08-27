@@ -30,11 +30,9 @@ public class CharacterDTO {
 
     @JsonProperty("ItemMaxLevel")
     private String itemMaxLevel;
-
     // 기본 생성자 추가
     public CharacterDTO() {
     }
-
     public CharacterDTO(CharacterEntity character) {
         this.serverName = character.getServerName();
         this.characterName = character.getCharacterName();

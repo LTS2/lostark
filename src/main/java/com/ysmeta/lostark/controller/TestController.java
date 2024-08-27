@@ -15,7 +15,6 @@ public class TestController {
     public TestController(TestService testService) {
         this.testService = testService;
     }
-
     /**
      *
      * @param username
@@ -27,8 +26,4 @@ public class TestController {
         String result = testService.findCharacterName(username);
         return result;
     }
-
-
-
-
 }

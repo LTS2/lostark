@@ -36,6 +36,4 @@ public class MyPageController {
     public String guestbook() {
         return "/my-page/guestbook";
     }
-
-
  }

@@ -89,4 +89,3 @@ public class CharacterController {
         return "redirect:/api/user/lostArk/regist";
     }
 }
-

@@ -13,7 +13,5 @@ import java.util.List;
  */
 @Repository
 public interface RecruitmentRepository extends JpaRepository<RecruitmentEntity, Long> {
-
-
     List<RecruitmentEntity> findAllByOrderByCreatedDateDesc();
 }

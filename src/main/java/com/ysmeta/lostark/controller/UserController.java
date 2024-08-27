@@ -66,8 +66,4 @@ public class UserController {
         response.put("loggedIn", isLoggedIn);
         return ResponseEntity.ok(response);
     }
-
-
-
 }
-

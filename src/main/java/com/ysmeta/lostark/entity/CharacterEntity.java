@@ -30,11 +30,7 @@ public class CharacterEntity {
     @Column
     private String itemMaxLevel;
     private boolean confirmed;
-
-
     @ManyToOne
     @JoinColumn(name = "user_id", nullable = false)
     private UserEntity user;
-
 }
-
