@@ -11,6 +11,7 @@
     <th:block th:replace="~{fragments/config::configFragment}"></th:block>
     <link rel="stylesheet" th:href="@{/css/my-page/regist.css}">
     <link rel="stylesheet" th:href="@{/css/my-page/activity.css}">
+    <script src="/js/my-page/regist.js" defer></script>
 </head>
 <body>
 <th:block th:replace="~{fragments/header :: headerFragment}"></th:block>
@@ -27,7 +28,7 @@
         <br>
         <div class="dashboard-regist">
             <!-- 폼 -->
-            <form action="#" th:action="@{/api/user/lostArk/register}" method="post">
+            <form id="regist-form">
                 <label for="username">사용자명:</label>
                 <input type="text" id="username" name="username" placeholder="사용자명을 입력하세요" required>
                 <br><br>
@@ -37,23 +38,23 @@
             </form>
 
             <!-- 결과 표시 영역 -->
-            <div th:if="${character != null}" class="result">
-                <p><strong>서버명:</strong> <span th:text="${character.serverName}"></span></p>
-                <p><strong>아이템 최대 레벨:</strong> <span th:text="${character.itemMaxLevel}"></span></p>
-                <p><strong>레벨:</strong> <span th:text="${character.characterLevel}"></span></p>
-                <p><strong>닉네임:</strong> <span th:text="${character.characterName}"></span></p>
-                <form action="#" th:action="@{/api/user/lostArk/confirm}" method="post">
-                    <input type="hidden" name="characterName" th:value="${character.characterName}"/>
+            <div id="result" class="result" style="display: none;">
+                <p><strong>서버명:</strong> <span id="server-name"></span></p>
+                <p><strong>아이템 최대 레벨:</strong> <span id="item-max-level"></span></p>
+                <p><strong>레벨:</strong> <span id="character-level"></span></p>
+                <p><strong>닉네임:</strong> <span id="character-name"></span></p>
+                <form id="confirm-form">
+                    <input type="hidden" id="character-name-hidden" name="characterName"/>
                     <button type="submit">이 캐릭터 맞습니까?</button>
                 </form>
             </div>
-            <div th:if="${character == null}" class="error">
+            <div id="error" class="error" style="display: none;">
                 <p>캐릭터를 찾을 수 없습니다.</p>
             </div>
         </div>
 
         <!-- 캐릭터 정보 표 -->
-        <div th:if="${characters != null && !characters.isEmpty()}" class="dashboard-section">
+        <div id="characters-section" class="dashboard-section" style="display: none;">
             <table class="dashboard-table">
                 <thead>
                 <tr>
@@ -63,13 +64,8 @@
                     <th>아이템 최대 레벨</th>
                 </tr>
                 </thead>
-                <tbody>
-                <tr th:each="character : ${characters}">
-                    <td th:text="${character.serverName}"></td>
-                    <td th:text="${character.characterClassName}"></td>
-                    <td th:text="${character.characterName}"></td>
-                    <td th:text="${character.itemMaxLevel}"></td>
-                </tr>
+                <tbody id="characters-tbody">
+                <!-- 캐릭터 정보가 여기에 추가됩니다 -->
                 </tbody>
             </table>
         </div>

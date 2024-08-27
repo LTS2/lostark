@@ -26,26 +26,33 @@ document.getElementById('filterForm').addEventListener('submit', function (event
         const boxGoal = box.querySelector('.box-details p:nth-of-type(1) span').textContent.trim();
         const boxDay = box.querySelector('.box-details p:nth-of-type(3) span').textContent.trim();
         const boxTime = box.querySelector('.box-details p:nth-of-type(2) span').textContent.trim();
-        const boxChallengeTime = box.querySelector('.box-details p:nth-of-type(4) span').textContent.trim();
-        const boxProficiency = box.querySelector('.box-details p:nth-of-type(5) span').textContent.trim();
+        const boxChallengeTime = box.querySelector('.box-details p:nth-of-type(5) span').textContent.trim(); // 도전 시간 인덱스 수정
+        const boxProficiency = box.querySelector('.box-details p:nth-of-type(4) span').textContent.trim(); // 숙련도 인덱스 수정
         const boxDate = box.querySelector('.box-details p:nth-of-type(6) span') ? box.querySelector('.box-details p:nth-of-type(6) span').textContent.trim() : '';
 
         // 필터 조건에 따라 박스 표시 여부 결정
         const filterDate = startDate ? new Date(startDate) : null;
         const boxDateObj = boxDate ? new Date(boxDate) : null;
 
+        // 날짜 비교를 위해 날짜 형식 맞추기 (연-월-일 형식)
+        const filterDateString = filterDate ? filterDate.toISOString().split('T')[0] : null;
+        const boxDateString = boxDateObj ? boxDateObj.toISOString().split('T')[0] : null;
+
         if ((goal === "" || goal === boxGoal) &&
             (day === "" || day === boxDay) &&
             (time === "" || time === boxTime) &&
             (challengeTime === "" || challengeTime === boxChallengeTime) &&
             (proficiency === "" || proficiency === boxProficiency) &&
-            (!filterDate || (boxDateObj && boxDateObj >= filterDate))) {
+            (!filterDate || (boxDateString && boxDateString === filterDateString))) {
             box.style.display = "block";
         } else {
             box.style.display = "none";
         }
     });
 });
+
+
+
 // 하위 박스 클릭 이벤트 처리
 document.querySelectorAll('.box').forEach(box => {
     box.addEventListener('click', function() {
@@ -55,6 +62,7 @@ document.querySelectorAll('.box').forEach(box => {
         }
     });
 });
+
 // 모집글 만들기 버튼 클릭 이벤트 처리
 document.getElementById('createPostButton').addEventListener('click', function () {
     fetch('/api/user/check-login')

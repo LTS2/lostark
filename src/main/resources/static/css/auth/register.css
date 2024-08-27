@@ -1,41 +1,50 @@
 /* Custom CSS for Register Page */
-body {
+.register-page {
     background-color: #f7f8fa;
     font-family: 'Arial', sans-serif;
     color: #333;
     margin: 0;
     padding: 0;
+    min-height: 100vh;  /* 페이지 전체 높이를 설정 */
+    display: flex;
+    flex-direction: column;
 }
 
-.register-container {
+.register-page #main-con {
+    flex: 1;  /* main-con이 flex로 확장 가능하도록 설정 */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.register-page .register-container {
     background-color: #ffffff;
     border-radius: 10px;
     box-shadow: 0px 0px 15px rgba(0, 0, 0, 0.1);
     padding: 40px;
     width: 100%;
     max-width: 400px;
-    margin: 50px auto;
     text-align: center;
 }
 
-.register-container h2 {
+.register-page .register-container h2 {
     margin-bottom: 20px;
     color: #444;
 }
 
-.form-group {
+.register-page .form-group {
     margin-bottom: 20px;
     text-align: left;
 }
 
-.form-group label {
+.register-page .form-group label {
     font-size: 14px;
     margin-bottom: 8px;
     display: block;
     color: #666;
 }
 
-.form-group input {
+.register-page .form-group input {
     width: 100%;
     padding: 10px;
     border-radius: 5px;
@@ -43,13 +52,13 @@ body {
     font-size: 16px;
 }
 
-.form-group input:focus {
+.register-page .form-group input:focus {
     border-color: #007bff;
     outline: none;
     box-shadow: 0 0 8px rgba(0, 123, 255, 0.25);
 }
 
-.form-group button {
+.register-page .form-group button {
     width: 100%;
     padding: 10px;
     background-color: #007bff;
@@ -61,43 +70,39 @@ body {
     transition: background-color 0.3s;
 }
 
-.form-group button:hover {
+.register-page .form-group button:hover {
     background-color: #0056b3;
 }
 
-.error-message {
+.register-page .error-message {
     color: red;
     font-size: 14px;
     margin-top: 5px;
 }
 
-p {
+.register-page .register-container p {
     margin-top: 20px;
     font-size: 14px;
     color: #555;
 }
 
-p a {
+.register-page .register-container p a {
     color: #007bff;
     text-decoration: none;
     transition: color 0.3s;
 }
 
-p a:hover {
+.register-page .register-container p a:hover {
     color: #0056b3;
 }
 
-main {
-    padding: 20px;
-}
-
 /* Custom CSS for Username Group */
-.username-group {
+.register-page .username-group {
     display: flex;
     align-items: center;
 }
 
-.username-group input {
+.register-page .username-group input {
     flex: 1;
     padding: 10px;
     border-radius: 5px;
@@ -105,7 +110,7 @@ main {
     font-size: 16px;
 }
 
-.username-group button {
+.register-page .username-group button {
     width: 50px;
     height: 40px;
     padding: 0;
@@ -120,6 +125,6 @@ main {
     line-height: 10px;
 }
 
-.username-group button:hover {
+.register-page .username-group button:hover {
     background-color: #0056b3;
 }
