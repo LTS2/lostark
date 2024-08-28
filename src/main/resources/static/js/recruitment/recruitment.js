@@ -12,45 +12,43 @@ for (let hour = 0; hour <= 24; hour++) {
 document.getElementById('filterForm').addEventListener('submit', function (event) {
     event.preventDefault();
 
-    // 필터 값 가져오기
-    const goal = document.getElementById('goal').value;
-    const day = document.getElementById('day').value;
-    const time = document.getElementById('time').value;
-    const challengeTime = document.getElementById('challengeTime').value;
-    const proficiency = document.getElementById('proficiency').value;
+    const goal = document.getElementById('goal').value.trim();
+    const recruitmentCount = document.getElementById('recruitmentCount').value.trim();
+    const time = document.getElementById('time').value.trim();
+    const challengeTime = document.getElementById('challengeTime').value.trim();
+    const proficiency = document.getElementById('proficiency').value.trim();
     const startDate = document.getElementById('startDate').value;
 
-    // 하위 박스들 필터링
     const boxes = document.querySelectorAll('.box');
+
     boxes.forEach(function (box) {
         const boxGoal = box.querySelector('.box-details p:nth-of-type(1) span').textContent.trim();
-        const boxDay = box.querySelector('.box-details p:nth-of-type(3) span').textContent.trim();
+        const boxRecruitmentCount = box.querySelector('.box-details p:nth-of-type(3) span').textContent.trim();
         const boxTime = box.querySelector('.box-details p:nth-of-type(2) span').textContent.trim();
-        const boxChallengeTime = box.querySelector('.box-details p:nth-of-type(5) span').textContent.trim(); // 도전 시간 인덱스 수정
-        const boxProficiency = box.querySelector('.box-details p:nth-of-type(4) span').textContent.trim(); // 숙련도 인덱스 수정
+        const boxChallengeTime = box.querySelector('.box-details p:nth-of-type(5) span').textContent.trim();
+        const boxProficiency = box.querySelector('.box-details p:nth-of-type(4) span').textContent.trim();
         const boxDate = box.querySelector('.box-details p:nth-of-type(6) span') ? box.querySelector('.box-details p:nth-of-type(6) span').textContent.trim() : '';
 
-        // 필터 조건에 따라 박스 표시 여부 결정
         const filterDate = startDate ? new Date(startDate) : null;
         const boxDateObj = boxDate ? new Date(boxDate) : null;
 
-        // 날짜 비교를 위해 날짜 형식 맞추기 (연-월-일 형식)
         const filterDateString = filterDate ? filterDate.toISOString().split('T')[0] : null;
         const boxDateString = boxDateObj ? boxDateObj.toISOString().split('T')[0] : null;
 
-        if ((goal === "" || goal === boxGoal) &&
-            (day === "" || day === boxDay) &&
-            (time === "" || time === boxTime) &&
-            (challengeTime === "" || challengeTime === boxChallengeTime) &&
-            (proficiency === "" || proficiency === boxProficiency) &&
-            (!filterDate || (boxDateString && boxDateString === filterDateString))) {
+        const matchesGoal = goal === "" || goal === boxGoal;
+        const matchesRecruitmentCount = recruitmentCount === "" || recruitmentCount === boxRecruitmentCount;
+        const matchesTime = time === "" || time === boxTime;
+        const matchesChallengeTime = challengeTime === "" || challengeTime === boxChallengeTime;
+        const matchesProficiency = proficiency === "" || proficiency === boxProficiency;
+        const matchesDate = !filterDate || (boxDateString && boxDateString === filterDateString);
+
+        if (matchesGoal && matchesRecruitmentCount && matchesTime && matchesChallengeTime && matchesProficiency && matchesDate) {
             box.style.display = "block";
         } else {
             box.style.display = "none";
         }
     });
 });
-
 
 
 // 하위 박스 클릭 이벤트 처리

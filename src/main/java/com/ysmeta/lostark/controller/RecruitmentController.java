@@ -26,7 +26,6 @@ import java.util.Optional;
 @RequestMapping("/api/recruitment")
 public class RecruitmentController {
     private final RecruitmentService recruitmentService;
-
     private final UserService userService;
 
     public RecruitmentController(RecruitmentService recruitmentService, UserService userService) {
@@ -38,16 +37,8 @@ public class RecruitmentController {
     public String recruitment(Model model) {
         // 현재 날짜를 기준으로 필터링
         LocalDate today = LocalDate.now();
-        LocalDate startOfWeek = today.with(DayOfWeek.MONDAY);
-        LocalDate endOfWeek = startOfWeek.plusDays(6);
-
-        // 현재 날짜와 수요일 이전의 모집글 필터링
-        // 최신 순으로 모든 모집글 가져오기
         List<RecruitmentEntity> recruitments = recruitmentService.findAllByOrderByCreatedDateDesc();
-        recruitments.removeIf(recruitment ->
-                recruitment.getStartDate().isBefore(today) ||
-                        (recruitment.getStartDate().isBefore(startOfWeek) && recruitment.getDay().equals("수요일"))
-        );
+        recruitments.removeIf(recruitment -> recruitment.getStartDate().isBefore(today));
 
         model.addAttribute("recruitments", recruitments);
         return "recruitment/recruitment";
@@ -66,8 +57,15 @@ public class RecruitmentController {
             throw new RuntimeException("User not found in session");
         }
 
-        recruitmentEntity.setUser(user);
+        // 오늘 날짜 가져오기
+        LocalDate today = LocalDate.now();
 
+        // 선택된 날짜가 오늘 날짜 이전인지 확인
+        if (recruitmentEntity.getStartDate().isBefore(today)) {
+            throw new RuntimeException("You cannot select a past date.");
+        }
+
+        recruitmentEntity.setUser(user);
         recruitmentService.save(recruitmentEntity);
 
         return "redirect:/api/recruitment";
@@ -77,7 +75,6 @@ public class RecruitmentController {
     public ResponseEntity<Map<String, Boolean>> checkLogin(HttpSession session) {
         UserEntity user = (UserEntity) session.getAttribute("user");
         boolean isLoggedIn = (user != null);
-        System.out.println("User in session: " + user);
         Map<String, Boolean> response = new HashMap<>();
         response.put("loggedIn", isLoggedIn);
         return ResponseEntity.ok(response);
@@ -87,10 +84,10 @@ public class RecruitmentController {
     @GetMapping("/details/{id}")
     public String getRecruitmentDetails(@PathVariable Long id, Model model) {
         Optional<RecruitmentEntity> recruitment = recruitmentService.findById(id);
-        if (recruitment == null) {
+        if (recruitment.isEmpty()) {
             return "redirect:/api/recruitment"; // 모집글이 없는 경우 목록 페이지로 리다이렉트
         }
-        model.addAttribute("recruitment", recruitment);
+        model.addAttribute("recruitment", recruitment.get());
         return "recruitment/recruitmentDetails"; // 상세 페이지로 이동
     }
 }

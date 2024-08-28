@@ -24,16 +24,15 @@
         <br>
         <br>
         <div class="details-box">
-            <!-- Optional 객체의 존재 여부를 체크하고, 값이 있을 때만 출력 -->
-            <div class="details-title" th:if="${recruitment.isPresent()}"
-                 th:text="${recruitment.get().title}">제목</div>
+            <!-- 모집글 상세 보기 -->
+            <div class="details-title" th:if="${recruitment != null}" th:text="${recruitment.title}">제목</div>
             <div class="details-content">
-                <p><strong>목표:</strong> <span th:text="${recruitment.isPresent() ? recruitment.get().goal : '정보 없음'}"></span></p>
-                <p><strong>시간:</strong> <span th:text="${recruitment.isPresent() ? recruitment.get().time : '정보 없음'}"></span></p>
-                <p><strong>요일:</strong> <span th:text="${recruitment.isPresent() ? recruitment.get().day : '정보 없음'}"></span></p>
-                <p><strong>숙련도:</strong> <span th:text="${recruitment.isPresent() ? recruitment.get().proficiency : '정보 없음'}"></span></p>
-                <p><strong>도전 시간:</strong> <span th:text="${recruitment.isPresent() ? recruitment.get().challengeTime : '정보 없음'}"></span></p>
-                <p><strong>출발 날짜:</strong> <span th:text="${recruitment.isPresent() ? recruitment.get().startDate : '정보 없음'}"></span></p>
+                <p><strong>목표:</strong> <span th:text="${recruitment.goal != null ? recruitment.goal : '정보 없음'}"></span></p>
+                <p><strong>시간:</strong> <span th:text="${recruitment.time != null ? recruitment.time : '정보 없음'}"></span></p>
+                <p><strong>모집 인원:</strong> <span th:text="${recruitment.recruitmentCount != null ? recruitment.recruitmentCount : '정보 없음'}"></span></p>
+                <p><strong>숙련도:</strong> <span th:text="${recruitment.proficiency != null ? recruitment.proficiency : '정보 없음'}"></span></p>
+                <p><strong>도전 시간:</strong> <span th:text="${recruitment.challengeTime != null ? recruitment.challengeTime : '정보 없음'}"></span></p>
+                <p><strong>출발 날짜:</strong> <span th:text="${recruitment.startDate != null ? recruitment.startDate : '정보 없음'}"></span></p>
                 <!-- 필요에 따라 채팅방 링크 추가 -->
                 <a href="#" id="createChatRoomLink">채팅방 만들기</a>
             </div>

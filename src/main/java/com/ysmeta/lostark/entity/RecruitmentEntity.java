@@ -28,10 +28,7 @@ public class RecruitmentEntity {
     private String goal;
 
     @Column(nullable = false)
-    private String day;
-
-    @Column(nullable = false)
-    private String time;
+    private String time; // 시간 필드
 
     @Column(nullable = false)
     private String challengeTime;
@@ -41,6 +38,9 @@ public class RecruitmentEntity {
 
     @Column(nullable = false)
     private String proficiency;
+
+    @Column(nullable = false)
+    private Integer recruitmentCount; // 모집 인원 추가
 
     @Column(name = "created_date")
     private LocalDateTime createdDate;
