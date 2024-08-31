@@ -47,6 +47,7 @@ public class ChattingController {
         logger.info("수신된 메세지: {}", chatMessage);
         if (chatMessage.getType() == ChatMessage.MessageType.EXIT) {
             connectedUsers.remove(chatMessage.getSender());
+            chatMessage.setMessage(connectedUsers.toString());
         }
         return chatMessage;
     }
