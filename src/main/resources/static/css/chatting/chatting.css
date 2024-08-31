@@ -2,7 +2,7 @@ a {
     text-decoration: none;
 }
 #chatting-content {
-    width: 80%;
+    width: 60%;
 }
 .content {
     padding: 20px;
@@ -12,10 +12,11 @@ a {
 .wrap {
     padding: 40px 10px;
     background-color: #A8C0D6;
-    max-height: 700px;
+    max-height: 550px;
     overflow-y: auto;
     border: 1px solid #ddd;
     border-radius: 10px;
+    min-height: 550px;
 }
 
 .wrap .chat {
@@ -48,7 +49,7 @@ a {
     max-width: calc(100% - 70px);
     padding: 10px;
     margin-top: 7px;
-    font-size: 13px;
+    font-size: 15px;
     border-radius: 10px;
 }
 
@@ -99,16 +100,113 @@ a {
     border-radius: 5px;
     margin-right: 10px;
 }
-
-.chat-input-section button {
+#send-button {
     padding: 10px 20px;
     background-color: #007bff;
     color: white;
     border: none;
     border-radius: 5px;
     cursor: pointer;
+    margin-right: 5px;
 }
-
-.chat-input-section button:hover {
+#send-button:hover {
     background-color: #0056b3;
 }
+#exit-button {
+    padding: 10px 20px;
+    background-color: #000000;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+}
+#exit-button:hover {
+    background-color: #FF5A4A;
+}
+
+.exit-message {
+    background-color: rgb(255 0 0 / 34%);
+    border-radius: 10px;
+    text-align: center;
+    font-weight: bold;
+    padding: 10px;
+    justify-content: center;
+}
+.icon-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin-right: 10px;
+}
+
+.sender-name {
+    font-size: 0.8em;
+    margin-top: 5px;
+    text-align: center;
+}
+
+.chat {
+    display: flex;
+    align-items: flex-start;
+    margin-bottom: 15px;
+}
+.enter-message {
+    background-color: rgb(148 146 146 / 46%);
+    border-radius: 10px;
+    text-align: center;
+    justify-content: center;
+    font-weight: bold;
+}
+
+#chat-sidebar {
+    width: 15%;
+    padding: 20px;
+    background-color: #fff;
+    border: 1px solid #ddd;
+    border-radius: 10px;
+    /*min-height: 750px;*/
+    margin-left: 30px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+}
+
+#chat-sidebar h2 {
+    margin-top: 0;
+}
+
+#participant-list {
+    list-style-type: none;
+    padding: 0;
+    margin-top: 15px;
+}
+
+#participant-list li {
+    padding: 5px;
+    border-bottom: 1px solid #ddd;
+    font-size: larger;
+}
+
+#participant-list li:last-child {
+    border-bottom: none;
+}
+
+/*.speech-bubble {*/
+/*    position: relative;*/
+/*    background: rgba(0, 170, 187, 0.77);*/
+/*    border-radius: .4em;*/
+/*    width: 15%;*/
+/*}*/
+
+/*.speech-bubble:after {*/
+/*    content: '';*/
+/*    position: absolute;*/
+/*    bottom: 0;*/
+/*    left: 50%;*/
+/*    width: 0;*/
+/*    height: 0;*/
+/*    border: 20px solid transparent;*/
+/*    border-top-color: #00aabb;*/
+/*    border-bottom: 0;*/
+/*    border-left: 0;*/
+/*    margin-left: -10px;*/
+/*    margin-bottom: -20px;*/
+/*}*/

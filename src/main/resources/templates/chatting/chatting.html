@@ -11,16 +11,11 @@
     <th:block th:replace="~{fragments/config::configFragment}"></th:block>
     <link rel="stylesheet" th:href="@{/css/chatting/chatting.css}">
 </head>
-<!--	<th:block layout:fragment="css"></th:block>-->
 
-
-<!-- content script -->
-<!--	<th:block layout:fragment="script"></th:block>-->
 <body>
 <th:block th:replace="~{fragments/header :: headerFragment}"></th:block>
 
 <main style="margin-top: 20px;" id="side-con">
-<!--    <th:block th:replace="~{fragments/sidebar :: sideBarFragment}"></th:block>-->
     <section class="content" id="chatting-content">
         <div>
             <h1>토론방</h1>
@@ -31,43 +26,25 @@
         <br>
         <div class="dashboard-section">
             <div class="wrap">
-                <div class="chat ch1">
-                    <div class="icon"><i class="fa-solid fa-user"></i></div>
-                    <div class="textbox">안녕하세요. 반갑습니다.</div>
-                </div>
-                <div class="chat ch2">
-                    <div class="icon"><i class="fa-solid fa-user"></i></div>
-                    <div class="textbox">안녕하세요 잘 지내셨죠?!?!?!</div>
-                </div>
-                <div class="chat ch1">
-                    <div class="icon"><i class="fa-solid fa-user"></i></div>
-                    <div class="textbox">아유~ 너무요너무요! 요즘 어떻게 지내세요?</div>
-                </div>
-                <div class="chat ch2">
-                    <div class="icon"><i class="fa-solid fa-user"></i></div>
-                    <div class="textbox">뭐~ 늘 똑같은 하루 하루를 보내는 중이에요. 전 항상 배고파요!!!!!!!!!!</div>
-                </div>
-                <div class="chat ch2">
-                    <div class="icon"><i class="fa-solid fa-user"></i></div>
-                    <div class="textbox">뭐~ 늘 똑같은 하루 하루를 보내는 중이에요. 전 항상 배고파요!!!!!!!!!!</div>
-                </div>
-                <div class="chat ch2">
-                    <div class="icon"><i class="fa-solid fa-user"></i></div>
-                    <div class="textbox">뭐~ 늘 똑같은 하루 하루를 보내는 중이에요. 전 항상 배고파요!!!!!!!!!!</div>
-                </div>
-                <div class="chat ch2">
-                    <div class="icon"><i class="fa-solid fa-user"></i></div>
-                    <div class="textbox">뭐~ 늘 똑같은 하루 하루를 보내는 중이에요. 전 항상 배고파요!!!!!!!!!!</div>
-                </div>
             </div>
         </div>
         <div class="chat-input-section">
             <input type="text" id="message-input" placeholder="메시지를 입력하세요...">
             <button id="send-button">전송</button>
+            <button id="exit-button">나가기</button>
         </div>
     </section>
-</main>
 
+    <aside id="chat-sidebar">
+        <h2>참여자 목록</h2>
+        <ul id="participant-list">
+        </ul>
+    </aside>
+    <input type="hidden" th:value="${username}" id="username">
+</main>
 <th:block th:replace="~{fragments/footer :: footerFragment}"></th:block>
+<script th:src="@{/js/chat/chat.js}"></script>
+<script src="https://cdn.jsdelivr.net/sockjs/1.1.4/sockjs.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/stompjs@2.3.3/lib/stomp.min.js"></script>
 </body>
 </html>
