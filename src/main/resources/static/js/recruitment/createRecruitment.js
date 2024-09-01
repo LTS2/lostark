@@ -7,6 +7,26 @@ for (let hour = 0; hour <= 24; hour++) {
     option.textContent = value;
     timeSelect.appendChild(option);
 }
+
+// 모집 인원 설정
+const goalSelect = document.getElementById('goal');
+const recruitmentCountSelect = document.getElementById('recruitmentCount');
+
+goalSelect.addEventListener('change', function() {
+    const selectedGoal = goalSelect.value;
+    recruitmentCountSelect.innerHTML = ''; // 기존 옵션들 제거
+
+    let maxCount = selectedGoal.includes('베히모스') ? 16 : 8;
+
+    for (let i = 1; i <= maxCount; i++) {
+        const option = document.createElement('option');
+        option.value = i;
+        option.textContent = i + '명';
+        recruitmentCountSelect.appendChild(option);
+    }
+});
+
+// 날짜 검증
 document.getElementById('createPostForm').addEventListener('submit', function(event) {
     var startDate = document.getElementById('startDate').value;
     var today = new Date().toISOString().split('T')[0]; // 오늘 날짜를 "YYYY-MM-DD" 형식으로 가져옴
