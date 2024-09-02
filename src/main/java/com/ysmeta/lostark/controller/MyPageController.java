@@ -2,6 +2,7 @@ package com.ysmeta.lostark.controller;
 
 import com.sun.tools.jconsole.JConsoleContext;
 import com.ysmeta.lostark.entity.CharacterEntity;
+import com.ysmeta.lostark.entity.RecruitmentEntity;
 import com.ysmeta.lostark.entity.UserEntity;
 import com.ysmeta.lostark.service.CharacterService;
 import com.ysmeta.lostark.service.UserService;
@@ -19,10 +20,7 @@ import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import java.io.IOException;
-import java.util.Collections;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 /**
  * MyPage Controller
@@ -52,7 +50,9 @@ public class MyPageController {
     @GetMapping("/activity")
     public String myPage(HttpSession session,
                          Model model) {
+        List<RecruitmentEntity> recruitList = userService.getRecruitList(user);
         model.addAttribute("user", user);
+        model.addAttribute("recruitList", recruitList);
         return "/my-page/activity";
     }
 

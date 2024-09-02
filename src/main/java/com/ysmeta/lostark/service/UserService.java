@@ -1,7 +1,10 @@
 package com.ysmeta.lostark.service;
 
+import com.ysmeta.lostark.entity.RecruitmentEntity;
 import com.ysmeta.lostark.entity.UserEntity;
+import com.ysmeta.lostark.repository.RecruitmentRepository;
 import com.ysmeta.lostark.repository.UserRepository;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
@@ -11,6 +14,7 @@ import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
+import java.util.List;
 import java.util.Optional;
 import java.util.UUID;
 
@@ -27,8 +31,12 @@ public class UserService {
 
     private final UserRepository userRepository;
 
-    public UserService(UserRepository userRepository) {
+    @Autowired
+    private RecruitmentRepository recruitmentRepository;
+
+    public UserService(UserRepository userRepository, RecruitmentRepository recruitmentRepository) {
         this.userRepository = userRepository;
+        this.recruitmentRepository = recruitmentRepository;
     }
 
     public void saveUser(UserEntity user) {
@@ -47,6 +55,7 @@ public class UserService {
         return userRepository.findById(id).orElse(null);
     }
 
+    /* 파일 저장 영역 */
     public String uploadFile(MultipartFile file) throws IOException {
         Path directoryPath = Paths.get(UPLOADED_FOLDER);
         if (!Files.exists(directoryPath)) {
@@ -65,6 +74,7 @@ public class UserService {
         }
     }
 
+    /* 파일 저장 영역 */
     public void updateUserProfileImage(Long userId, MultipartFile file) throws IOException {
         UserEntity user = userRepository.findById(userId)
                 .orElseThrow(() -> new IllegalArgumentException("사용자를 찾을 수 없습니다."));
@@ -75,8 +85,14 @@ public class UserService {
         userRepository.save(user);
     }
 
+    /* 파일 저장 영역 */
     public String getFileName(MultipartFile file) throws IOException {
         String fullPath = uploadFile(file);
         return Paths.get(fullPath).getFileName().toString();
+    }
+
+    /* 회원이 작성한 모집글 불러오기 */
+    public List<RecruitmentEntity> getRecruitList(UserEntity user) {
+        return recruitmentRepository.findByUserId(user.getId());
     }
 }
