@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>마이페이지</title>
+  <th:block th:replace="~{fragments/config::configFragment}"></th:block>
+  <link rel="stylesheet" th:href="@{/css/my-page/info.css}">
+</head>
+<body>
+  <th:block th:replace="~{fragments/header :: headerFragment}"></th:block>
+    <main style="margin-top: 20px;" id="side-con">
+      <th:block th:replace="~{fragments/sidebar :: sideBarFragment}"></th:block>
+      <div class="profile-container">
+        <h1>마이페이지</h1>
+        <p class="profile-p">프로필 사진을 변경할 수 있습니다.</p>
+        <div class="profile-info">
+          <div class="profile-image-section">
+
+<!--            <img src="/images/bono.jpg" alt="프로필 사진" class="profile-img" id="current-profile-image">-->
+              <!-- 기본 이미지를 설정하는 방법 -->
+              <img th:if="${user.getPicture() != null}"
+                   th:src="@{${user.getPicture()}}"
+                   alt="프로필 사진"
+                   class="profile-img"
+                   id="current-profile-image">
+
+              <img th:unless="${user.getPicture() != null}"
+                   th:src="@{/images/default.jpg}"
+                   alt="기본 프로필 사진"
+                   class="profile-img"
+                   id="current-profile-image">
+
+
+              <form id="profile-form" action="/mypage/profile/upload" method="POST" enctype="multipart/form-data">
+                <input type="file" id="profile-image" name="profileImage" accept="image/*">
+                <button id="profile-btn">변경</button>
+              </form>
+          </div>
+          <div class="profile-details">
+            <p th:text="'닉네임 : ' + ${user.getUsername()}"></p>
+          </div>
+            <br>
+            <p th:text="${message}"></p>
+        </div>
+      </div>
+
+    </main>
+  <th:block th:replace="~{fragments/footer :: footerFragment}"></th:block>
+  <script th:src="@{/js/my-page/info.js}"></script>
+</body>
+</html>

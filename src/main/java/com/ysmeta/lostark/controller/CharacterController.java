@@ -25,13 +25,15 @@ import java.util.List;
 public class CharacterController {
 
     private final CharacterService characterService;
-
+    private UserEntity user;
     public CharacterController(CharacterService characterService) {
         this.characterService = characterService;
     }
 
     @PostMapping("/regist")
-    public String registerCharacter(@RequestParam String username, Model model) {
+    public String registerCharacter(@RequestParam String username,
+                                    Model model,
+                                    HttpSession session) {
         CharacterDTO characterDTO = characterService.getCharacterByUsername(username);
 
         if (characterDTO != null) {
@@ -42,7 +44,8 @@ public class CharacterController {
             model.addAttribute("errorMessage", "캐릭터를 찾을 수 없습니다."); // 에러 메시지 추가
             log.info("No characters found for username: {}", username);
         }
-
+        user = (UserEntity) session.getAttribute("user");
+        model.addAttribute("user", user);
         return "my-page/regist";
     }
 
@@ -55,6 +58,10 @@ public class CharacterController {
 
         List<CharacterEntity> characters = characterService.getCharactersByUserId(loggedInUser.getId());
         model.addAttribute("characters", characters);
+
+        user = (UserEntity) session.getAttribute("user");
+        model.addAttribute("user", user);
+
         return "my-page/regist";
     }
 
@@ -75,6 +82,9 @@ public class CharacterController {
         }
 
         model.addAttribute("characters", characters);
+        user = (UserEntity) session.getAttribute("user");
+        model.addAttribute("user", user);
+
         return "my-page/regist";
     }
 
