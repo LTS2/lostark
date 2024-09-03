@@ -1,0 +1,57 @@
+.writer-con {
+    display: flex;
+    align-items: center;
+    padding: 15px;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    margin-top: 20px;
+    background-color: #fff;
+    max-width: 400px;
+    margin-bottom: 40px;
+}
+
+.profile-picture {
+    margin-right: 15px;
+}
+
+.profile-img {
+    width: 70px;
+    height: 70px;
+    border-radius: 50%;
+    object-fit: cover;
+}
+
+.writer-info {
+    margin-right: 20px;
+    flex-grow: 1;
+}
+
+.writer-name {
+    font-size: 16px;
+    font-weight: bold;
+    color: #333;
+}
+
+.guestbook-button {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 10px;
+}
+
+.home-btn, .write-guestbook-btn {
+    width: 100px;
+    padding: 10px 11px;
+    font-size: 14px;
+    background-color: #007bff;
+    color: white;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+.home-btn:hover, .write-guestbook-btn:hover {
+    background-color: #0056b3;
+}

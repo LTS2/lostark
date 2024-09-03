@@ -8,6 +8,7 @@
     <meta name="viewport" content="width=device-width, maximum-scale=1.0, minimum-scale=1.0, initial-scale=1.0"/>
     <link rel="stylesheet" href="/css/recruitment/recruitment.css"/> <!-- 스타일 시트 경로 -->
     <th:block th:replace="~{fragments/config::configFragment}"></th:block>
+    <link rel="stylesheet" th:href="@{/css/recruitment/detail.css}">
 </head>
 
 <body>
@@ -21,8 +22,24 @@
         <div>
             <h1>모집글 상세 보기</h1>
         </div>
-        <br>
-        <br>
+        <div class="writer-con">
+            <div class="profile-picture">
+                <img src="/images/bono.jpg" alt="프로필 사진" class="profile-img">
+            </div>
+
+            <div class="writer-info">
+                <span class="writer-name">작성자 : </span>
+                <span class="writer-name">김개똥</span>
+            </div>
+
+            <div class="guestbook-button">
+                <button type="button" class="home-btn">HOME 가기</button>
+                <button type="button" class="write-guestbook-btn">방명록 남기기</button>
+            </div>
+
+        </div>
+
+
         <div class="details-box">
             <!-- 모집글 상세 보기 -->
             <div class="details-title" th:if="${recruitment != null}" th:text="${recruitment.title}">제목</div>
