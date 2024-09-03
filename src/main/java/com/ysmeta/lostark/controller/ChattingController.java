@@ -41,6 +41,9 @@ public class ChattingController {
         return "/chatting/chatting";
     }
 
+    /*
+     * 채팅 :: 메세지 전송
+     * */
     @MessageMapping("/chat.sendMessage")
     @SendTo("/sub/chatroom")
     public ChatMessage sendMessage(@Payload ChatMessage chatMessage) {
@@ -52,6 +55,9 @@ public class ChattingController {
         return chatMessage;
     }
 
+    /*
+     * 채팅 :: 입장
+     * */
     @MessageMapping("/chat.addUser")
     @SendTo("/sub/chatroom")
     public ChatMessage addUser(@Payload ChatMessage chatMessage,
@@ -65,6 +71,9 @@ public class ChattingController {
         return chatMessage;
     }
 
+    /*
+     * 채팅 참여자 목록 가져오기
+     * */
     @GetMapping("/participants")
     @SendTo("/sub/chatroom/participants")
     public Set<String> getParticipants() {
