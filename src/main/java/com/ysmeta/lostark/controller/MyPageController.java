@@ -63,6 +63,9 @@ public class MyPageController {
         return "/my-page/guestbook";
     }
 
+    /*
+    * 회원 프로필 사진 변경
+    * */
     @PostMapping("/profile/upload")
     public String uploadProfileImage(@RequestParam("profileImage") MultipartFile file,
                                      RedirectAttributes redirectAttributes,
@@ -86,4 +89,8 @@ public class MyPageController {
         }
         return "redirect:/mypage/info";
     }
+
+    /*
+    * 방명록 작성
+    * */
  }
