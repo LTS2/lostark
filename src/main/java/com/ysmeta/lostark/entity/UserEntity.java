@@ -20,4 +20,8 @@ public class UserEntity {
     private String picture;
     @OneToMany(mappedBy = "user")
     private List<CharacterEntity> characters;
+    @OneToMany(mappedBy = "user")
+    private List<GuestbookEntity> writtenGuestbooks; // 작성한 방명록 리스트
+    @OneToMany(mappedBy = "targetUser")
+    private List<GuestbookEntity> receivedGuestbooks; // 받은 방명록 리스트
 }
