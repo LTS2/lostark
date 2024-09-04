@@ -129,6 +129,6 @@ public class UserService {
     }
 
     public List<GuestbookEntity> getGuestbookEntityList(Long targetUserId) {
-        return guestbookRepository.findByTargetUserId(targetUserId);
+        return guestbookRepository.findByTargetUserIdOrderByCreatedAtDesc(targetUserId);
     }
 }

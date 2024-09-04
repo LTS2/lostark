@@ -16,5 +16,5 @@ import java.util.List;
 
 @Repository
 public interface GuestbookRepository extends JpaRepository<GuestbookEntity, Long> {
-    List<GuestbookEntity> findByTargetUserId(Long userId);
+    List<GuestbookEntity> findByTargetUserIdOrderByCreatedAtDesc(Long targetUserId);
 }
