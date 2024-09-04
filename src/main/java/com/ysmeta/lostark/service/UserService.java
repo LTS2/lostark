@@ -1,21 +1,20 @@
 package com.ysmeta.lostark.service;
 
 import com.ysmeta.lostark.dto.RequestDTO;
+import com.ysmeta.lostark.entity.CharacterEntity;
 import com.ysmeta.lostark.entity.GuestbookEntity;
 import com.ysmeta.lostark.entity.RecruitmentEntity;
 import com.ysmeta.lostark.entity.UserEntity;
+import com.ysmeta.lostark.repository.CharacterRepository;
 import com.ysmeta.lostark.repository.GuestbookRepository;
 import com.ysmeta.lostark.repository.RecruitmentRepository;
 import com.ysmeta.lostark.repository.UserRepository;
 import jakarta.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.io.IOException;
-import java.net.URLEncoder;
-import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
@@ -42,12 +41,15 @@ public class UserService {
     @Autowired
     private final GuestbookRepository guestbookRepository;
 
+    private final CharacterRepository characterRepository;
+
     public UserService(UserRepository userRepository,
                        RecruitmentRepository recruitmentRepository,
-                       GuestbookRepository guestbookRepository) {
+                       GuestbookRepository guestbookRepository, CharacterRepository characterRepository) {
         this.userRepository = userRepository;
         this.recruitmentRepository = recruitmentRepository;
         this.guestbookRepository = guestbookRepository;
+        this.characterRepository = characterRepository;
     }
 
     public void saveUser(UserEntity user) {
@@ -131,4 +133,7 @@ public class UserService {
     public List<GuestbookEntity> getGuestbookEntityList(Long targetUserId) {
         return guestbookRepository.findByTargetUserIdOrderByCreatedAtDesc(targetUserId);
     }
+
+
+
 }

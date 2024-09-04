@@ -135,4 +135,10 @@ public class CharacterService {
     public void deleteCharacter(Long characterId) {
         characterRepository.deleteById(characterId);
     }
+
+
+
+    public CharacterEntity findById(Long id) {
+        return characterRepository.findById(id).orElse(null);
+    }
 }

@@ -35,7 +35,6 @@
                         <label for="character">캐릭터</label>
                         <select id="character" name="character" required>
                             <option value="">선택하세요</option>
-                            <!-- 캐릭터 옵션이 서버로부터 전달됩니다 -->
                             <th:block th:each="character : ${characters}">
                                 <option th:value="${character.id}"
                                         th:text="${character.characterName}"
@@ -49,7 +48,6 @@
                         <label for="goal">목표</label>
                         <select id="goal" name="goal" required disabled>
                             <option value="">선택하세요</option>
-                            <!-- 목표 옵션이 JavaScript로 설정됩니다 -->
                         </select>
                     </div>
 
@@ -57,7 +55,6 @@
                     <div class="form-group">
                         <label for="recruitmentCount">모집 인원</label>
                         <select id="recruitmentCount" name="recruitmentCount" required>
-                            <!-- 모집 인원 옵션이 JavaScript로 설정됩니다 -->
                         </select>
                     </div>
 

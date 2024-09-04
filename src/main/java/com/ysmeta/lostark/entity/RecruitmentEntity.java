@@ -46,6 +46,10 @@ public class RecruitmentEntity {
     private LocalDateTime createdDate;
 
     @ManyToOne
+    @JoinColumn(name = "characters", nullable = true)
+    private CharacterEntity characterEntity;
+
+    @ManyToOne
     @JoinColumn(name = "user_id")
     private UserEntity user;
 
