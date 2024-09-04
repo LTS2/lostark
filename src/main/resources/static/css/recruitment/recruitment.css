@@ -67,6 +67,7 @@
     flex-direction: column;
     gap: 10px;
     margin: 0; /* 좌우 마진 제거 */
+    cursor: pointer; /* Add pointer on hover */
 }
 
 .box p {
