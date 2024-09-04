@@ -31,15 +31,15 @@
             </div>
             <br>
             <br>
-            <div class="dashboard-write">
-                <div class="guest-textarea">
-                    <label for="guestbook-comment" class="screen_out">방명록 작성</label>
-                    <textarea id="guestbook-comment" placeholder="내용을 입력하세요." class="guest-textarea-input"></textarea>
-                    <div class="guest-submit-con">
-                        <button type="submit" class="guest-submit-btn">등록</button>
-                    </div>
-                </div>
-            </div>
+<!--            <div class="dashboard-write">-->
+<!--                <div class="guest-textarea">-->
+<!--                    <label for="guestbook-comment" class="screen_out">방명록 작성</label>-->
+<!--                    <textarea id="guestbook-comment" placeholder="내용을 입력하세요." class="guest-textarea-input"></textarea>-->
+<!--                    <div class="guest-submit-con">-->
+<!--                        <button type="submit" class="guest-submit-btn">등록</button>-->
+<!--                    </div>-->
+<!--                </div>-->
+<!--            </div>-->
 
             <div class="guestbook-total">
                 <span class="tt_txt_g">방명록</span>
@@ -55,8 +55,11 @@
                 </ul>
             </div>
         </section>
+        <input type="hidden" id="username" th:value="${session.user.getUsername()}">
+        <input type="hidden" id="userId" th:value="${session.user.getId()}">
     </main>
 
     <th:block th:replace="~{fragments/footer :: footerFragment}"></th:block>
+    <script th:src="@{/js/my-page/guestbook.js}"></script>
 </body>
 </html>
