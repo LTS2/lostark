@@ -63,18 +63,22 @@ document.querySelectorAll('.box').forEach(box => {
 
 // 모집글 만들기 버튼 클릭 이벤트 처리
 document.getElementById('createPostButton').addEventListener('click', function () {
-    fetch('/api/user/check-login')
+    fetch('/api/recruitment/check-login')
         .then(response => response.json())
         .then(data => {
-            console.log('Login status response:', data); // 응답 데이터 로그로 확인
+            console.log('Login and character check response:', data); // 응답 데이터 로그로 확인
             if (data.loggedIn) {
-                window.location.href = '/api/recruitment/create'; // 모집글 작성 페이지로 이동
+                if (data.hasCharacter) {
+                    window.location.href = '/api/recruitment/create'; // 캐릭터가 등록된 경우 모집글 작성 페이지로 이동
+                } else {
+                    alert('캐릭터를 먼저 등록해주세요.'); // 캐릭터가 등록되지 않은 경우 알림창 표시
+                }
             } else {
                 alert('로그인 후 이용해주세요.'); // 로그인하지 않은 경우 알림창 표시
             }
         })
         .catch(error => {
-            console.error('Error checking login status:', error);
-            alert('로그인 상태 확인 중 오류가 발생했습니다.'); // 오류 발생 시 알림창 표시
+            console.error('Error checking login and character status:', error);
+            alert('로그인 및 캐릭터 상태 확인 중 오류가 발생했습니다.'); // 오류 발생 시 알림창 표시
         });
 });

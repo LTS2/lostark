@@ -1,7 +1,5 @@
 <!DOCTYPE html>
-<html lang="en"
-      xmlns:th="http://www.thymeleaf.org"
-      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
+<html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
 <head>
     <meta charset="UTF-8"/>
     <title>모집글 만들기</title>
@@ -15,7 +13,6 @@
 <th:block th:replace="~{fragments/header :: headerFragment}"></th:block>
 
 <main style="margin-top: 20px;" id="side-con">
-
     <!-- Main Content -->
     <section class="content" id="create-post-content">
         <div>
@@ -33,21 +30,26 @@
 
                 <!-- 두 번째 줄 -->
                 <div class="form-row">
+                    <!-- 캐릭터 선택 드롭다운 -->
+                    <div class="form-group">
+                        <label for="character">캐릭터</label>
+                        <select id="character" name="character" required>
+                            <option value="">선택하세요</option>
+                            <!-- 캐릭터 옵션이 서버로부터 전달됩니다 -->
+                            <th:block th:each="character : ${characters}">
+                                <option th:value="${character.id}"
+                                        th:text="${character.characterName}"
+                                        th:data-level="${character.itemMaxLevel}"></option>
+                            </th:block>
+                        </select>
+                    </div>
+
                     <!-- 목표 드롭다운 -->
                     <div class="form-group">
                         <label for="goal">목표</label>
-                        <select id="goal" name="goal" required>
+                        <select id="goal" name="goal" required disabled>
                             <option value="">선택하세요</option>
-                            <!-- 목표 옵션들 추가 -->
-                            <option value="에기르 (하드1680)">에기르 (하드1680)</option>
-                            <option value="에기르 (노말1660)">에기르 (노말1660)</option>
-                            <option value="베히모스 (노말1640)">베히모스 (노말1640)</option>
-                            <option value="카멘 (하드1630)">카멘 (하드1630)</option>
-                            <option value="카멘 (노말1610)">카멘 (노말1610)</option>
-                            <option value="상아탑 (하드1620)">상아탑 (하드1620)</option>
-                            <option value="상아탑 (노말1600)">상아탑 (노말1600)</option>
-                            <option value="카양겔 (하드1580)">카양겔 (하드1580)</option>
-                            <option value="카양겔 (노말1540)">카양겔 (노말1540)</option>
+                            <!-- 목표 옵션이 JavaScript로 설정됩니다 -->
                         </select>
                     </div>
 
