@@ -34,19 +34,32 @@
 
             <div class="guestbook-button">
                 <button type="button" class="home-btn">HOME 가기</button>
-                <button type="button" class="write-guestbook-btn" onclick="openModal()">방명록 남기기</button>
+
+                <button type="button"
+                        class="write-guestbook-btn"
+                        th:if="${session.user == null}"
+                        onclick="alert('로그인 후 이용해주세요');">
+                    방명록 남기기
+                </button>
+
+                <button type="button"
+                        class="write-guestbook-btn"
+                        th:if="${session.user != null}"
+                        onclick="openModal()">
+                    방명록 남기기
+                </button>
             </div>
         </div>
-<!--        <input type="hidden" th:value="${writerId}">-->
+
         <!-- 방명록 작성 모달창 -->
-        <div id="guestbook-modal" class="modal-overlay">
+        <div id="guestbook-modal" class="modal-overlay" style="display: none;">
             <div class="modal-content">
                 <div class="dashboard-write">
                     <div class="guest-textarea">
                         <label for="guestbook-comment" class="screen_out">방명록 작성</label>
                         <textarea id="guestbook-comment" placeholder="내용을 입력하세요." class="guest-textarea-input"></textarea>
                         <div class="guest-submit-con">
-                            <button type="submit" class="guest-submit-btn">등록</button>
+                            <button type="submit" class="guest-submit-btn" onclick="submitGuestbook()">등록</button>
                         </div>
                     </div>
                     <br>
@@ -55,10 +68,10 @@
             </div>
         </div>
 
-        <!-- 모달 열기 버튼 -->
-        <button type="button" class="open-modal-btn" onclick="openModal()">방명록 남기기</button>
-
-
+        <input type="hidden" id="username" th:value="${session.user.getUsername()}">
+        <input type="hidden" id="userId" th:value="${session.user.getId()}">
+        <!-- 모집글 작성자 아이디 -->
+        <input type="hidden" id="targetUserId" th:value="${recruitment.getUser().getId()}">
         <div class="details-box">
             <!-- 모집글 상세 보기 -->
             <div class="details-title" th:if="${recruitment != null}" th:text="${recruitment.title}">제목</div>
