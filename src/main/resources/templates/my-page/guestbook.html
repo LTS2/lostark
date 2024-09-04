@@ -31,35 +31,35 @@
             </div>
             <br>
             <br>
-            <div class="dashboard-write">
-                <div class="guest-textarea">
-                    <label for="guestbook-comment" class="screen_out">방명록 작성</label>
-                    <textarea id="guestbook-comment" placeholder="내용을 입력하세요." class="guest-textarea-input"></textarea>
-                    <div class="guest-submit-con">
-                        <button type="submit" class="guest-submit-btn">등록</button>
-                    </div>
-                </div>
-            </div>
+<!--            <div class="dashboard-write">-->
+<!--                <div class="guest-textarea">-->
+<!--                    <label for="guestbook-comment" class="screen_out">방명록 작성</label>-->
+<!--                    <textarea id="guestbook-comment" placeholder="내용을 입력하세요." class="guest-textarea-input"></textarea>-->
+<!--                    <div class="guest-submit-con">-->
+<!--                        <button type="submit" class="guest-submit-btn">등록</button>-->
+<!--                    </div>-->
+<!--                </div>-->
+<!--            </div>-->
 
             <div class="guestbook-total">
                 <span class="tt_txt_g">방명록</span>
-                <span class="tt_num_g">2</span>
+                <span class="tt_num_g" th:text="${totalGuestbooks}"></span>
             </div>
             <div class="guestbook-list">
                 <ul>
-                    <li>
-                        <strong>유저이</strong>
-                        <p>놀러와씀다!</p>
-                    </li>
-                    <li>
-                        <strong>유저일</strong>
-                        <p>첫 방명록 남겨요 ㅎㅎ</p>
+                    <li th:each="guestbook : ${guestbookList}">
+                        <strong th:text="${guestbook.username}"></strong>
+                        <span class="guestbook-time" th:text="${#temporals.format(guestbook.createdAt, 'yyyy-MM-dd HH:mm')}"></span>
+                        <p th:text="${guestbook.comment}"></p>
                     </li>
                 </ul>
             </div>
         </section>
+        <input type="hidden" id="username" th:value="${session.user.getUsername()}">
+        <input type="hidden" id="userId" th:value="${session.user.getId()}">
     </main>
 
     <th:block th:replace="~{fragments/footer :: footerFragment}"></th:block>
+    <script th:src="@{/js/my-page/guestbook.js}"></script>
 </body>
 </html>

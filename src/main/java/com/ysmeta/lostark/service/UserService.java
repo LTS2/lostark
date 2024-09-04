@@ -1,11 +1,16 @@
 package com.ysmeta.lostark.service;
 
+import com.ysmeta.lostark.dto.RequestDTO;
+import com.ysmeta.lostark.entity.GuestbookEntity;
 import com.ysmeta.lostark.entity.RecruitmentEntity;
 import com.ysmeta.lostark.entity.UserEntity;
+import com.ysmeta.lostark.repository.GuestbookRepository;
 import com.ysmeta.lostark.repository.RecruitmentRepository;
 import com.ysmeta.lostark.repository.UserRepository;
+import jakarta.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.io.IOException;
@@ -28,15 +33,21 @@ import java.util.UUID;
 public class UserService {
 
     private static final String UPLOADED_FOLDER = "src/main/resources/static/images/";
-
+    private UserEntity user;
     private final UserRepository userRepository;
 
     @Autowired
     private RecruitmentRepository recruitmentRepository;
 
-    public UserService(UserRepository userRepository, RecruitmentRepository recruitmentRepository) {
+    @Autowired
+    private final GuestbookRepository guestbookRepository;
+
+    public UserService(UserRepository userRepository,
+                       RecruitmentRepository recruitmentRepository,
+                       GuestbookRepository guestbookRepository) {
         this.userRepository = userRepository;
         this.recruitmentRepository = recruitmentRepository;
+        this.guestbookRepository = guestbookRepository;
     }
 
     public void saveUser(UserEntity user) {
@@ -94,5 +105,30 @@ public class UserService {
     /* 회원이 작성한 모집글 불러오기 */
     public List<RecruitmentEntity> getRecruitList(UserEntity user) {
         return recruitmentRepository.findByUserId(user.getId());
+    }
+
+    /* 방명록 작성 */
+    public void saveGuestbook(RequestDTO requestDTO, HttpSession session) {
+
+        UserEntity writer = (UserEntity) session.getAttribute("user");
+
+        Long targetUserId = requestDTO.getTargetUserId();
+
+        UserEntity targetUser = userRepository.findById(targetUserId)
+                .orElseThrow(() -> new RuntimeException("대상 회원을 찾을 수 없습니다."));
+
+        String comment = requestDTO.getComment();
+
+        GuestbookEntity guestbookEntry = new GuestbookEntity();
+        guestbookEntry.setUser(writer);
+        guestbookEntry.setTargetUser(targetUser);
+        guestbookEntry.setUsername(writer.getUsername());
+        guestbookEntry.setComment(comment);
+
+        guestbookRepository.save(guestbookEntry);
+    }
+
+    public List<GuestbookEntity> getGuestbookEntityList(Long targetUserId) {
+        return guestbookRepository.findByTargetUserIdOrderByCreatedAtDesc(targetUserId);
     }
 }
