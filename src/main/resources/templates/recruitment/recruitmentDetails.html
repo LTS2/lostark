@@ -87,11 +87,90 @@
                 <a href="#" id="createChatRoomLink">지원하기</a>
             </div>
         </div>
+
+        <!-- 채팅 섹션 -->
+        <div class="chat-box" style="margin-top: 20px;">
+            <h2>채팅방</h2>
+            <div id="chat-box" style="border: 1px solid #ccc; padding: 10px; max-height: 300px; overflow-y: scroll;">
+                <!-- 실시간 채팅 메시지들이 여기에 표시됩니다. -->
+            </div>
+            <form id="messageForm" style="margin-top: 10px;">
+                <input type="text" id="messageInput" placeholder="메시지를 입력하세요" required style="width: 80%;"/>
+                <button type="submit">보내기</button>
+            </form>
+        </div>
     </section>
 </main>
 
 <script src="/js/recruitment/recruitment.js"></script>
 <script th:src="@{/js/recruitment/detail.js}"></script>
+<script src="https://cdn.jsdelivr.net/npm/sockjs-client/dist/sockjs.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/stompjs/lib/stomp.min.js"></script>
+
+<script>
+    var stompClient = null;
+
+    function connect() {
+        var socket = new SockJS('/ws-stomp'); // 서버와 일치하는 엔드포인트 사용
+        stompClient = Stomp.over(socket);
+
+        stompClient.connect({}, function (frame) {
+            console.log('Connected: ' + frame);
+
+            // 채팅방 토픽 구독
+            stompClient.subscribe('/sub/chatroom', function (chatMessage) {
+                showMessage(JSON.parse(chatMessage.body));
+            });
+
+            // 사용자 추가 및 메시지 전송 시 처리
+            var username = document.getElementById('username').value;
+            if (username) {
+                var chatMessage = {
+                    sender: username,
+                    content: '',
+                    type: 'JOIN'
+                };
+                stompClient.send("/chatting/chat.addUser", {}, JSON.stringify(chatMessage));
+            }
+        });
+    }
+
+    function showMessage(message) {
+        var chatBox = document.getElementById('chat-box');
+        var messageElement = document.createElement('p');
+
+        if (message.type === 'JOIN') {
+            messageElement.innerHTML = "<strong>" + message.sender + "</strong> 님이 입장하셨습니다.";
+        } else if (message.type === 'EXIT') {
+            messageElement.innerHTML = "<strong>" + message.sender + "</strong> 님이 퇴장하셨습니다.";
+        } else {
+            messageElement.innerHTML = "<strong>" + message.sender + ":</strong> " + message.content;
+        }
+
+        chatBox.appendChild(messageElement);
+        chatBox.scrollTop = chatBox.scrollHeight;
+    }
+
+    document.getElementById('messageForm').addEventListener('submit', function (event) {
+        event.preventDefault();
+
+        var messageInput = document.getElementById('messageInput');
+        var messageContent = messageInput.value.trim();
+
+        if (messageContent && stompClient) {
+            var chatMessage = {
+                sender: document.getElementById('username').value,
+                content: messageContent,
+                type: 'CHAT'
+            };
+
+            stompClient.send("/chatting/chat.sendMessage", {}, JSON.stringify(chatMessage));
+            messageInput.value = '';
+        }
+    });
+
+    connect();
+</script>
 
 <!-- Footer -->
 <th:block th:replace="~{fragments/footer :: footerFragment}"></th:block>
