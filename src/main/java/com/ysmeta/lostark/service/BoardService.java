@@ -46,4 +46,8 @@ public class BoardService {
             return false;
         }
     }
+
+    public BoardEntity getPostById(Long id) {
+        return boardRepository.findById(id).orElse(null);
+    }
 }
