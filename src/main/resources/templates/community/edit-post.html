@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
+<head>
+    <meta charset="UTF-8">
+    <title>커뮤니티 > 게시글 작성</title>
+    <meta name="viewport"
+          content="width=device-width, maximum-scale=1.0, minimum-scale=1, user-scalable=yes,initial-scale=1.0"/>
+    <th:block th:replace="~{fragments/config::configFragment}"></th:block>
+    <link rel="stylesheet" th:href="@{/css/community/create-post.css}">
+</head>
+<body>
+    <th:block th:replace="~{fragments/header :: headerFragment}"></th:block>
+        <div class="page-container">
+            <div class="container">
+                <h2>게시글 수정</h2>
+                <form action="#" th:action="@{/community/edit/{id}(id=${post.id})}" method="post">
+                    <label for="title">제목</label>
+                    <input type="text" id="title" name="title" th:value="${post.title}" required>
+
+                    <label for="content">내용</label>
+                    <textarea id="content" name="content" required th:text="${post.content}"></textarea>
+
+                    <div class="btn-group">
+                        <a href="/community/view/{id}" th:href="@{/community/view/{id}(id=${post.id})}" class="btn-cancel">취소</a>
+                        <button type="submit" class="btn-submit">수정</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    <th:block th:replace="~{fragments/footer :: footerFragment}"></th:block>
+</body>
+</html>
