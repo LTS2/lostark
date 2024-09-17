@@ -29,11 +29,10 @@
 
             <div class="writer-info">
                 <span class="writer-name">작성자 : </span>
-                <span class="writer-name">김개똥</span>
+                <span class="writer-username" th:text="${recruitment.user.username}"></span>
             </div>
 
             <div class="guestbook-button">
-                <button type="button" class="home-btn">HOME 가기</button>
 
                 <button type="button"
                         class="write-guestbook-btn"
@@ -68,8 +67,11 @@
             </div>
         </div>
 
-        <input type="hidden" id="username" th:value="${session.user.getUsername()}">
-        <input type="hidden" id="userId" th:value="${session.user.getId()}">
+        <div th:if="${session.user != null}">
+            <input type="hidden" id="username" th:value="${session.user.getUsername()}">
+            <input type="hidden" id="userId" th:value="${session.user.getId()}">
+        </div>
+
         <!-- 모집글 작성자 아이디 -->
         <input type="hidden" id="targetUserId" th:value="${recruitment.getUser().getId()}">
 
