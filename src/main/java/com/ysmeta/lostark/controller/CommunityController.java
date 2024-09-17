@@ -114,4 +114,21 @@ public class CommunityController {
 
         return "redirect:/community/view/" + id;
     }
+
+    /* 커뮤니티 게시글 삭제 */
+
+    @PostMapping("/delete/{id}")
+    public String deletePost(@PathVariable Long id, HttpSession session) {
+        UserEntity user = (UserEntity) session.getAttribute("user");
+
+        // 게시글 정보 가져오기
+        BoardEntity post = boardService.getPostById(id);
+
+        if (post == null || user == null || !user.getId().equals(post.getUser().getId())) {
+            return "redirect:/community";
+        }
+        boardService.deletePost(id);
+
+        return "redirect:/community";
+    }
 }
