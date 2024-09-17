@@ -27,10 +27,12 @@ public class BoardService {
         this.boardRepository = boardRepository;
     }
 
+    /* 모든 게시글 */
     public List<BoardEntity> getAllPosts() {
         return boardRepository.findAll();
     }
 
+    /* 게시글 작성 */
     public boolean createPost(String title, String content, HttpSession session) {
         try {
             UserEntity user = (UserEntity) session.getAttribute("user");
@@ -51,8 +53,14 @@ public class BoardService {
         return boardRepository.findById(id).orElse(null);
     }
 
+    /* 게시글 수정 */
     public void updatePost(BoardEntity post) {
         post.setUpdatedAt(LocalDateTime.now());
         boardRepository.save(post);
+    }
+
+    /* 게시글 삭제 */
+    public void deletePost(Long id) {
+        boardRepository.deleteById(id);
     }
 }
