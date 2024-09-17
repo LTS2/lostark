@@ -6,6 +6,9 @@ import com.ysmeta.lostark.repository.BoardRepository;
 import jakarta.servlet.http.HttpSession;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.dao.DataAccessException;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDateTime;
@@ -28,8 +31,9 @@ public class BoardService {
     }
 
     /* 모든 게시글 */
-    public List<BoardEntity> getAllPosts() {
-        return boardRepository.findAll();
+    public Page<BoardEntity> getPosts(int page, int size) {
+        Pageable pageable = PageRequest.of(page, size);
+        return boardRepository.findAllByOrderByCreatedAtDesc(pageable);
     }
 
     /* 게시글 작성 */

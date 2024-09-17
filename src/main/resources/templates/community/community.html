@@ -18,29 +18,41 @@
 <main style="margin-top: 20px;" id="side-con">
   <div class="board-header">
     <h1>커뮤니티 게시판</h1>
-<!--    <button class="btn-new-post">New Post</button>-->
     <button class="btn-new-post" onclick="window.location.href='/community/create'">New Post</button>
   </div>
 
-<!--  <div class="post-list">-->
-    <div class="post-list">
-      <div th:each="post : ${posts}" class="post-card">
-        <h3><a th:href="@{/community/view/{id}(id=${post.id})}" th:text="${post.title}"></a></h3>
-        <p th:text="${post.content}"></p>
-        <div class="post-meta">
-          Posted by <span th:text="${post.user.username}"></span> on
-          <span th:text="${#temporals.format(post.createdAt, 'yyyy-MM-dd HH:mm')}"></span>
-        </div>
+  <div class="post-list">
+    <div th:each="post : ${postPage.content}" class="post-card">
+      <h3><a th:href="@{/community/view/{id}(id=${post.id})}" th:text="${post.title}"></a></h3>
+      <p th:text="${post.content}"></p>
+      <div class="post-meta">
+        Posted by <span th:text="${post.user.username}"></span> on
+        <span th:text="${#temporals.format(post.createdAt, 'yyyy-MM-dd HH:mm')}"></span>
       </div>
     </div>
+  </div>
 
   <div class="pagination">
-    <a href="#">&#171; Prev</a>
-    <a href="#">1</a>
-    <a href="#">2</a>
-    <a href="#">3</a>
-    <a href="#">Next &#187;</a>
+    <a th:href="@{/community(page=${postPage.number - 1})}"
+       th:if="${postPage.hasPrevious()}"
+       class="pagination-button">&#171; 이전</a>
+    <a th:if="${!postPage.hasPrevious()}"
+       class="pagination-button disabled">&#171; 이전</a>
+
+    <span th:each="i : ${#numbers.sequence(1, postPage.totalPages)}">
+        <a th:href="@{/community(page=${i - 1})}"
+           th:text="${i}"
+           th:classappend="${i == postPage.number + 1} ? 'active' : ''"
+           class="pagination-button"></a>
+    </span>
+
+    <a th:href="@{/community(page=${postPage.number + 1})}"
+       th:if="${postPage.hasNext()}"
+       class="pagination-button">다음 &#187;</a>
+    <a th:if="${!postPage.hasNext()}"
+       class="pagination-button disabled">다음 &#187;</a>
   </div>
+
 </main>
 <th:block th:replace="~{fragments/footer :: footerFragment}"></th:block>
 </body>

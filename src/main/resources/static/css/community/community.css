@@ -78,25 +78,43 @@
 
 .pagination {
     display: flex;
+    align-items: center;
     justify-content: center;
-    margin-top: 20px;
-    margin-top: 40px;
+    padding: 0;
+    list-style: none;
+    margin-top: 60px;
 }
 
-.pagination a {
-    margin: 0 5px;
+.pagination a,
+.pagination span {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
     padding: 8px 16px;
+    margin: 0 4px;
     text-decoration: none;
-    background-color: #007bff;
-    color: white;
-    border-radius: 5px;
+    color: #007bff;
+    border-radius: 4px;
+    font-size: 16px;
 }
 
 .pagination a:hover {
     background-color: #0056b3;
+    color: white;
 }
 
-/* Responsive design */
+.pagination .active {
+    background-color: #007bff;
+    color: white;
+    border: 1px solid #007bff;
+}
+
+.pagination a.disabled {
+    color: #6c757d;
+    border-color: #6c757d;
+    cursor: not-allowed;
+}
+
 @media (max-width: 768px) {
     .post-card {
         width: calc(50% - 20px);

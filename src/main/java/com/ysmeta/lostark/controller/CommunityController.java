@@ -5,6 +5,7 @@ import com.ysmeta.lostark.entity.UserEntity;
 import com.ysmeta.lostark.service.BoardService;
 import jakarta.servlet.http.HttpSession;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.data.domain.Page;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
@@ -29,10 +30,14 @@ public class CommunityController {
     }
 
 
+
     /* 커뮤니티 모든 게시글 view */
     @GetMapping
-    public String community (Model model) {
-        model.addAttribute("posts", boardService.getAllPosts());
+    public String community (@RequestParam(defaultValue = "0") int page,
+                             Model model) {
+        int size = 9;
+        Page<BoardEntity> postPage = boardService.getPosts(page, size);
+        model.addAttribute("postPage", postPage);
         return "/community/community";
     }
 
@@ -116,7 +121,6 @@ public class CommunityController {
     }
 
     /* 커뮤니티 게시글 삭제 */
-
     @PostMapping("/delete/{id}")
     public String deletePost(@PathVariable Long id, HttpSession session) {
         UserEntity user = (UserEntity) session.getAttribute("user");
