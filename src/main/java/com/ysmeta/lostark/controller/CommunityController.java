@@ -27,12 +27,16 @@ public class CommunityController {
     public CommunityController(BoardService boardService) {
         this.boardService = boardService;
     }
+
+
+    /* 커뮤니티 모든 게시글 view */
     @GetMapping
     public String community (Model model) {
         model.addAttribute("posts", boardService.getAllPosts());
         return "/community/community";
     }
 
+    /* 커뮤니티 게시글 작성 페이지 view */
     @GetMapping("/create")
     public String createPost() {
         return "/community/create-post";
@@ -67,5 +71,47 @@ public class CommunityController {
         model.addAttribute("user", user);
         model.addAttribute("post", post);
         return "community/view-post";
+    }
+
+    /* 커뮤니티 게시글 수정 페이지 view */
+    @GetMapping("/edit/{id}")
+    public String editPostForm(@PathVariable Long id,
+                               Model model,
+                               HttpSession session) {
+        BoardEntity post = boardService.getPostById(id);
+        if (post == null) {
+            return "redirect:/community";
+        }
+
+        UserEntity user = (UserEntity) session.getAttribute("user");
+        if (user == null || !user.getId().equals(post.getUser().getId())) {
+            return "redirect:/community";
+        }
+        model.addAttribute("post", post);
+        return "community/edit-post";
+    }
+
+    /* 커뮤니티 게시글 수정 */
+    @PostMapping("/edit/{id}")
+    public String updatePost(@PathVariable Long id,
+                             @RequestParam String title,
+                             @RequestParam String content,
+                             HttpSession session) {
+
+        BoardEntity post = boardService.getPostById(id);
+
+        if (post == null) {
+            return "redirect:/community";
+        }
+
+        UserEntity user = (UserEntity) session.getAttribute("user");
+        if (user == null || !user.getId().equals(post.getUser().getId())) {
+            return "redirect:/community";
+        }
+        post.setTitle(title);
+        post.setContent(content);
+        boardService.updatePost(post);
+
+        return "redirect:/community/view/" + id;
     }
 }

@@ -50,4 +50,9 @@ public class BoardService {
     public BoardEntity getPostById(Long id) {
         return boardRepository.findById(id).orElse(null);
     }
+
+    public void updatePost(BoardEntity post) {
+        post.setUpdatedAt(LocalDateTime.now());
+        boardRepository.save(post);
+    }
 }
