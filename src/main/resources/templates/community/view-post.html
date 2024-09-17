@@ -26,7 +26,7 @@
     <a href="/community" class="btn-back">목록으로</a>
     <a th:if="${user != null and user.id == post.user.id}" th:href="@{/community/edit/{id}(id=${post.id})}" class="btn-edit">수정</a>
     <form th:action="@{/community/delete/{id}(id=${post.id})}" method="post" onsubmit="return confirm('정말 삭제하시겠습니까?');">
-      <button type="submit" class="btn-delete">삭제</button>
+      <button th:if="${user != null and user.id == post.user.id}" type="submit" class="btn-delete">삭제</button>
     </form>
   </div>
 </main>
