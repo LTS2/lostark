@@ -18,47 +18,21 @@
 <main style="margin-top: 20px;" id="side-con">
   <div class="board-header">
     <h1>커뮤니티 게시판</h1>
-    <button class="btn-new-post">New Post</button>
+<!--    <button class="btn-new-post">New Post</button>-->
+    <button class="btn-new-post" onclick="window.location.href='/community/create'">New Post</button>
   </div>
 
-  <div class="post-list">
-    <div class="post-card">
-      <h3><a href="#">Post Title 6</a></h3>
-      <p>This is a summary of the first post. It gives a brief idea about the content.</p>
-      <div class="post-meta">Posted by John Doe on 2024-09-01</div>
+<!--  <div class="post-list">-->
+    <div class="post-list">
+      <div th:each="post : ${posts}" class="post-card">
+        <h3><a th:href="@{/community/view/{id}(id=${post.id})}" th:text="${post.title}"></a></h3>
+        <p th:text="${post.content}"></p>
+        <div class="post-meta">
+          Posted by <span th:text="${post.user.username}"></span> on
+          <span th:text="${#temporals.format(post.createdAt, 'yyyy-MM-dd HH:mm')}"></span>
+        </div>
+      </div>
     </div>
-
-    <div class="post-card">
-      <h3><a href="#">Post Title 5</a></h3>
-      <p>This is a summary of the second post. It provides an insight into what the post is about.</p>
-      <div class="post-meta">Posted by Jane Smith on 2024-09-02</div>
-    </div>
-
-    <div class="post-card">
-      <h3><a href="#">Post Title 4</a></h3>
-      <p>This is a summary of the third post. A brief introduction to the post's content.</p>
-      <div class="post-meta">Posted by Alice Johnson on 2024-09-03</div>
-    </div>
-
-    <div class="post-card">
-      <h3><a href="#">Post Title 3</a></h3>
-      <p>This is a summary of the third post. A brief introduction to the post's content.</p>
-      <div class="post-meta">Posted by Alice Johnson on 2024-09-03</div>
-    </div>
-
-    <div class="post-card">
-      <h3><a href="#">Post Title 2</a></h3>
-      <p>This is a summary of the third post. A brief introduction to the post's content.</p>
-      <div class="post-meta">Posted by Alice Johnson on 2024-09-03</div>
-    </div>
-
-    <div class="post-card">
-      <h3><a href="#">Post Title 1</a></h3>
-      <p>This is a summary of the third post. A brief introduction to the post's content.</p>
-      <div class="post-meta">Posted by Alice Johnson on 2024-09-03</div>
-    </div>
-    <!-- Add more post cards as needed -->
-  </div>
 
   <div class="pagination">
     <a href="#">&#171; Prev</a>
