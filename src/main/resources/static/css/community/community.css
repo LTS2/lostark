@@ -1,0 +1,110 @@
+#side-con {
+    width: 80%;
+    margin: 20px auto;
+    padding: 20px;
+    flex: 1;
+    justify-content: center;
+}
+
+.board-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 20px;
+    width: 98%;
+}
+
+.board-header h2 {
+    margin: 0;
+    font-size: 28px;
+    color: #333;
+}
+
+.btn-new-post {
+    padding: 10px 20px;
+    background-color: #28a745;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 14px;
+}
+
+.btn-new-post:hover {
+    background-color: #218838;
+}
+
+.post-list {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 20px;
+}
+
+.post-card {
+    background-color: white;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    width: calc(33.333% - 20px);
+    padding: 20px;
+    box-sizing: border-box;
+    transition: transform 0.3s ease;
+}
+
+.post-card:hover {
+    transform: translateY(-10px);
+}
+
+.post-card h3 {
+    margin: 0 0 10px;
+    font-size: 20px;
+    color: #007bff;
+}
+
+.post-card h3 a {
+    text-decoration: none;
+    color: inherit;
+}
+
+.post-card p {
+    margin: 0 0 15px;
+    font-size: 14px;
+    color: #666;
+}
+
+.post-card .post-meta {
+    font-size: 12px;
+    color: #999;
+}
+
+.pagination {
+    display: flex;
+    justify-content: center;
+    margin-top: 20px;
+    margin-top: 40px;
+}
+
+.pagination a {
+    margin: 0 5px;
+    padding: 8px 16px;
+    text-decoration: none;
+    background-color: #007bff;
+    color: white;
+    border-radius: 5px;
+}
+
+.pagination a:hover {
+    background-color: #0056b3;
+}
+
+/* Responsive design */
+@media (max-width: 768px) {
+    .post-card {
+        width: calc(50% - 20px);
+    }
+}
+
+@media (max-width: 480px) {
+    .post-card {
+        width: 100%;
+    }
+}
