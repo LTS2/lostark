@@ -33,7 +33,7 @@ public class BoardEntity {
     @Column(name = "title", nullable = false)
     private String title; // 제목
 
-    @Column(name = "content", nullable = false)
+    @Column(name = "content", columnDefinition = "LONGTEXT", nullable = false)
     private String content; // 내용
 
     @Column(name = "created_at", nullable = false)

@@ -3,6 +3,7 @@ package com.ysmeta.lostark.entity;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
+import lombok.ToString;
 
 /**
  * @author : ejum
@@ -12,6 +13,7 @@ import lombok.Setter;
 @Entity
 @Getter
 @Setter
+@ToString
 @Table(name = "characters")
 public class CharacterEntity {
     @Id

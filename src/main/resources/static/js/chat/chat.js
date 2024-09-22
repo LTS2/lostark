@@ -136,4 +136,7 @@ document.addEventListener('DOMContentLoaded', function() {
             }
         });
     }
+    document.getElementById("send-button").addEventListener("click", function() {
+        sendMessage();
+    });
 });
