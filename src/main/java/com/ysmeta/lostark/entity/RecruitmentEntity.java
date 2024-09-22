@@ -42,6 +42,12 @@ public class RecruitmentEntity {
     @Column(nullable = false)
     private Integer recruitmentCount; // 모집 인원 추가
 
+    @Column(nullable = true)
+    private Integer applyCount; // 지원 인원
+
+    @Column(name = "status")
+    private String status;
+
     @Column(name = "created_date")
     private LocalDateTime createdDate;
 

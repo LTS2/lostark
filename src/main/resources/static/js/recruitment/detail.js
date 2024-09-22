@@ -8,9 +8,20 @@ function closeModal() {
 
 window.onclick = function(event) {
     let modal = document.getElementById("guestbook-modal");
-    if (event.target == modal) {
+    let chModal = document.getElementById("character-modal");
+    if (event.target == modal || event.target == chModal) {
         modal.style.display = "none";
     }
+}
+
+/* 모달 창 보이기 */
+function showCharacterModal() {
+    document.getElementById("character-modal").style.display = "block";
+}
+
+/* 모달 창 닫기 */
+function closeCharacterModal() {
+    document.getElementById("character-modal").style.display = "none";
 }
 
 function submitGuestbook() {
@@ -50,4 +61,15 @@ function submitGuestbook() {
             console.error('ERROR :: ', error);
             alert('방명록 등록 중 오류가 발생했습니다.');
         });
+}
+
+function applyCharacter() {
+    let selectedCharacter = document.getElementById("character-select").value;
+    let recruitmentId = document.getElementById("recruitment-id").value;
+    if (selectedCharacter) {
+        document.getElementById("selected-character").value = selectedCharacter;
+        document.getElementById("character-form").submit();
+    } else {
+        alert("캐릭터를 선택하세요.");
+    }
 }

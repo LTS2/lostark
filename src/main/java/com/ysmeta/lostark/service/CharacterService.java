@@ -137,8 +137,8 @@ public class CharacterService {
     }
 
 
-
     public CharacterEntity findById(Long id) {
         return characterRepository.findById(id).orElse(null);
     }
+
 }

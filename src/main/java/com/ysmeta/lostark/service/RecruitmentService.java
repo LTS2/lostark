@@ -1,5 +1,6 @@
 package com.ysmeta.lostark.service;
 
+import com.ysmeta.lostark.entity.CharacterEntity;
 import com.ysmeta.lostark.entity.RecruitmentEntity;
 import com.ysmeta.lostark.repository.RecruitmentRepository;
 import org.springframework.stereotype.Service;
@@ -38,4 +39,5 @@ public class RecruitmentService {
     public Optional<RecruitmentEntity> findById(Long id) {
         return recruitmentRepository.findById(id);
     }
+
 }

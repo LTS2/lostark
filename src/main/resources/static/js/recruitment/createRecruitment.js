@@ -33,7 +33,7 @@ characterSelect.addEventListener('change', function() {
         console.error('캐릭터 레벨을 가져오는 데 실패했습니다.');
         return;
     }
-
+    console.log("목표 필터링")
     // 캐릭터의 레벨을 확인하여 목표를 필터링
     updateGoalOptions(characterLevel);
 });
@@ -41,6 +41,7 @@ characterSelect.addEventListener('change', function() {
 // 목표 드롭다운 업데이트
 function updateGoalOptions(level) {
     goalSelect.innerHTML = '<option value="">선택하세요</option>'; // 초기화
+    let goalAdded = false;
 
     Object.keys(goalLevels).forEach(goal => {
         const goalLevel = goalLevels[goal];
@@ -49,11 +50,19 @@ function updateGoalOptions(level) {
             option.value = goal;
             option.textContent = goal;
             goalSelect.appendChild(option);
+            goalAdded = true;
         }
     });
 
-    goalSelect.disabled = false; // 목표 드롭다운 활성화
+    if (!goalAdded) {
+        // 목표를 추가할 수 없으면 메시지 표시
+        alert("캐릭터 레벨이 낮아 모집글을 작성할 수 없습니다.");
+        goalSelect.disabled = true;
+    } else {
+        goalSelect.disabled = false;
+    }
 }
+
 
 // 목표 변경 시 모집 인원 업데이트
 goalSelect.addEventListener('change', function() {

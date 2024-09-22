@@ -143,3 +143,214 @@
 .guest-submit-btn:hover {
     background-color: #0056b3;
 }
+
+/* 상세 박스 레이아웃 */
+.details-box {
+    width: 100%;
+    margin: 0 auto;
+    padding: 20px;
+    background-color: #fff;
+    border-radius: 10px;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+    font-family: 'Arial', sans-serif;
+}
+
+/* 제목 스타일 */
+.details-title {
+    font-size: 28px;
+    font-weight: bold;
+    margin-bottom: 20px;
+    text-align: center;
+    color: #333;
+}
+
+/* 컨텐츠 스타일 */
+.details-content {
+    font-size: 16px;
+    color: #555;
+    line-height: 1.8;
+}
+
+.details-content p {
+    margin: 10px 0;
+}
+
+/* 강조된 텍스트 */
+.details-content strong {
+    font-weight: 600;
+    color: #333;
+}
+
+/* "지원하기" 버튼 스타일 */
+#apply-btn {
+    display: inline-block;
+    padding: 12px 20px;
+    background-color: #007bff;
+    color: #fff;
+    border-radius: 5px;
+    text-align: center;
+    text-decoration: none;
+    font-size: 18px;
+    font-weight: bold;
+    margin-top: 20px;
+    transition: background-color 0.3s ease;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+}
+
+/* 버튼 호버 효과 */
+#apply-btn:hover {
+    background-color: #0056b3;
+}
+
+/* 미디어 쿼리: 모바일 최적화 */
+@media (max-width: 768px) {
+    .details-box {
+        width: 95%;
+        padding: 15px;
+    }
+
+    .details-title {
+        font-size: 24px;
+    }
+
+    .details-content {
+        font-size: 14px;
+    }
+
+    #apply-btn {
+        font-size: 16px;
+        padding: 10px 18px;
+    }
+}
+
+/* 모달 기본 스타일 */
+.character-modal {
+    display: none; /* 기본적으로 숨김 */
+    position: fixed;
+    z-index: 1000; /* 다른 요소 위에 표시 */
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    overflow: auto;
+    background-color: rgba(0, 0, 0, 0.5); /* 어두운 배경 */
+}
+
+/* 모달 콘텐츠 스타일 */
+.character-content {
+    background-color: #fff;
+    margin: 10% auto;
+    padding: 20px;
+    border: 1px solid #888;
+    border-radius: 8px;
+    width: 50%;
+    max-width: 600px;
+}
+
+/* 닫기 버튼 스타일 */
+.character-close-btn {
+    color: #aaa;
+    float: right;
+    font-size: 28px;
+    font-weight: bold;
+    cursor: pointer;
+}
+
+.character-close-btn:hover,
+.character-close-btn:focus {
+    color: #000;
+    text-decoration: none;
+}
+
+.apply-div {
+    display: flex;
+    justify-content: flex-end;
+}
+/* 선택박스 및 버튼 스타일 */
+#character-select {
+    width: 100%;
+    padding: 8px;
+    margin: 10px 0;
+    border-radius: 4px;
+    border: 1px solid #ccc;
+}
+
+button {
+    background-color: #007bff;
+    color: #fff;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 16px;
+}
+
+button:hover {
+    background-color: #0056b3;
+}
+
+.form-div {
+    display: flex;
+    justify-content: flex-end;
+}
+
+.chat-box {
+    position: fixed;
+    bottom: 0;
+    right: 20px;
+    width: 400px;
+    min-height: 300px;
+    background-color: #f1f1f1;
+    border: 1px solid #ccc;
+    border-radius: 10px 10px 0 0;
+    display: flex;
+    flex-direction: column;
+}
+
+.chat-header {
+    background-color: #4CAF50;
+    color: white;
+    padding: 10px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.chat-close-btn {
+    background: none;
+    border: none;
+    color: white;
+    font-size: 18px;
+    cursor: pointer;
+}
+
+.chat-messages {
+    padding: 10px;
+    overflow-y: auto;
+    flex: 1;
+    background-color: #fff;
+    border-top: 1px solid #ddd;
+    border-bottom: 1px solid #ddd;
+}
+
+.chat-input-box {
+    display: flex;
+    padding: 10px;
+}
+
+.chat-input {
+    flex: 1;
+    padding: 5px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+}
+
+.chat-send-btn {
+    margin-left: 10px;
+    padding: 5px 10px;
+    background-color: #4CAF50;
+    color: white;
+    border: none;
+    cursor: pointer;
+}

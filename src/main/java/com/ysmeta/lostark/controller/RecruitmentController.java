@@ -2,9 +2,11 @@ package com.ysmeta.lostark.controller;
 
 import com.ysmeta.lostark.entity.CharacterEntity;
 import com.ysmeta.lostark.entity.RecruitmentEntity;
+import com.ysmeta.lostark.entity.RecruitmentTeamEntity;
 import com.ysmeta.lostark.entity.UserEntity;
 import com.ysmeta.lostark.service.CharacterService;
 import com.ysmeta.lostark.service.RecruitmentService;
+import com.ysmeta.lostark.service.RecruitmentTeamService;
 import com.ysmeta.lostark.service.UserService;
 import jakarta.servlet.http.HttpSession;
 import lombok.extern.slf4j.Slf4j;
@@ -29,12 +31,13 @@ import java.util.Optional;
 @RequestMapping("/api/recruitment")
 public class RecruitmentController {
     private final RecruitmentService recruitmentService;
-
+    private final RecruitmentTeamService recruitmentTeamService;
     private final CharacterService characterService;
     private final UserService userService;
 
-    public RecruitmentController(RecruitmentService recruitmentService, CharacterService characterService, UserService userService) {
+    public RecruitmentController(RecruitmentService recruitmentService,  RecruitmentTeamService recruitmentTeamService, CharacterService characterService, UserService userService) {
         this.recruitmentService = recruitmentService;
+        this.recruitmentTeamService = recruitmentTeamService;
         this.characterService = characterService;
         this.userService = userService;
     }
@@ -92,7 +95,7 @@ public class RecruitmentController {
             throw new RuntimeException("You cannot select a past date.");
         }
 
-
+        recruitmentEntity.setStatus("모집 중");
         recruitmentService.save(recruitmentEntity);
 
         return "redirect:/api/recruitment";
@@ -118,12 +121,38 @@ public class RecruitmentController {
     }
     // 모집글 상세 페이지
     @GetMapping("/details/{id}")
-    public String getRecruitmentDetails(@PathVariable Long id, Model model) {
+    public String getRecruitmentDetails(@PathVariable Long id,
+                                        HttpSession session,
+                                        Model model) {
+        UserEntity user = (UserEntity) session.getAttribute("user");
         Optional<RecruitmentEntity> recruitment = recruitmentService.findById(id);
+        if (user != null) {
+            List<CharacterEntity> characterList = user.getCharacters();
+            model.addAttribute("characterList", characterList);
+            log.info(">>>>> 저장된 캐릭터들 :: " + user.getCharacters().toString());
+        }
         if (recruitment.isEmpty()) {
-            return "redirect:/api/recruitment"; // 모집글이 없는 경우 목록 페이지로 리다이렉트
+            return "redirect:/api/recruitment";
         }
         model.addAttribute("recruitment", recruitment.get());
-        return "recruitment/recruitmentDetails"; // 상세 페이지로 이동
+        return "recruitment/recruitmentDetails";
+    }
+
+    /* 모집글 지원 */
+    @PostMapping("/submit-character")
+    public String applyCharacter(@RequestParam("selectedCharacter") String selectedCharacterId,
+                                 @RequestParam("recruitmentId") Long recruitmentId,
+                                 HttpSession session,
+                                 Model model) {
+        UserEntity user = (UserEntity) session.getAttribute("user");
+        try {
+            recruitmentTeamService.saveRecruitmentCharacter(recruitmentId, selectedCharacterId, user);
+            log.info("저장완료.");
+            return "redirect:/api/recruitment/details/" + recruitmentId;
+        } catch (Exception e) {
+            e.printStackTrace();
+            model.addAttribute("error", e.getMessage());
+            return "redirect:/api/recruitment/details/" + recruitmentId;
+        }
     }
 }

@@ -34,9 +34,12 @@ public class CommunityController {
     /* 커뮤니티 모든 게시글 view */
     @GetMapping
     public String community (@RequestParam(defaultValue = "0") int page,
+                             HttpSession session,
                              Model model) {
         int size = 9;
+        UserEntity user = (UserEntity) session.getAttribute("user");
         Page<BoardEntity> postPage = boardService.getPosts(page, size);
+        model.addAttribute("user", user);
         model.addAttribute("postPage", postPage);
         return "/community/community";
     }
