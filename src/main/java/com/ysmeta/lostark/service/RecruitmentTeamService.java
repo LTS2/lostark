@@ -10,7 +10,8 @@ import com.ysmeta.lostark.repository.RecruitmentTeamRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.util.Optional;
+import java.util.List;
+
 
 /**
  * @author : minjooo
@@ -59,5 +60,9 @@ public class RecruitmentTeamService {
         }
 
         recruitmentTeamRepository.save(recruitmentTeamEntity);
+    }
+
+    public List<RecruitmentTeamEntity> findAllRecruitmentTeams() {
+        return recruitmentTeamRepository.findAll();
     }
 }

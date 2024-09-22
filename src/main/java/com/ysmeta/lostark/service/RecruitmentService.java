@@ -2,6 +2,7 @@ package com.ysmeta.lostark.service;
 
 import com.ysmeta.lostark.entity.CharacterEntity;
 import com.ysmeta.lostark.entity.RecruitmentEntity;
+import com.ysmeta.lostark.entity.RecruitmentTeamEntity;
 import com.ysmeta.lostark.repository.RecruitmentRepository;
 import org.springframework.stereotype.Service;
 
@@ -21,7 +22,6 @@ public class RecruitmentService {
     public RecruitmentService(RecruitmentRepository recruitmentRepository) {
         this.recruitmentRepository = recruitmentRepository;
     }
-
 
     // findAll() 메서드에서 List<RecruitmentEntity> 반환
     public List<RecruitmentEntity> findAll() {

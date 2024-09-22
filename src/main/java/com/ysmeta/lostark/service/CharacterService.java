@@ -128,9 +128,9 @@ public class CharacterService {
         characterRepository.save(character);
     }
 
-        public List<CharacterEntity> getCharactersByUserId(Long userId) {
-            return characterRepository.findByUserId(userId);
-        }
+    public List<CharacterEntity> getCharactersByUserId(Long userId) {
+        return characterRepository.findByUserId(userId);
+    }
 
     public void deleteCharacter(Long characterId) {
         characterRepository.deleteById(characterId);
