@@ -15,8 +15,7 @@
 <!-- Header -->
 <th:block th:replace="~{fragments/header :: headerFragment}"></th:block>
 
-<main style="margin-top: 20px;" id="side-con">
-    <p>test</p>
+<main style="margin-top: 20px;" id="reside-con">
     <!-- Main Content -->
     <section class="content" id="activity-content">
         <div>
@@ -24,7 +23,10 @@
         </div>
         <div class="writer-con">
             <div class="profile-picture">
-                <img src="/images/bono.jpg" alt="프로필 사진" class="profile-img">
+                <img th:src="${recruitment.user.picture != null} ? @{${recruitment.user.picture}} : @{/images/default.jpg}"
+                     th:alt="${recruitment.user.picture != null} ? '프로필 사진' : '기본 프로필 사진'"
+                     class="profile-img"
+                     id="current-profile-image" />
             </div>
 
             <div class="writer-info">
@@ -32,20 +34,22 @@
                 <span class="writer-username" th:text="${recruitment.user.username}"></span>
             </div>
 
+            <br>
+
             <div class="guestbook-button">
 
                 <button type="button"
                         class="write-guestbook-btn"
                         th:if="${session.user == null}"
                         onclick="alert('로그인 후 이용해주세요');">
-                    방명록 남기기
+                    방명록 작성
                 </button>
 
                 <button type="button"
                         class="write-guestbook-btn"
                         th:if="${session.user != null}"
                         onclick="openModal()">
-                    방명록 남기기
+                    방명록 작성
                 </button>
             </div>
         </div>
@@ -76,23 +80,51 @@
 
         <div class="details-box">
             <!-- 모집글 상세 보기 -->
-            <h2 th:text="${recruitment.status} + '(' + ${recruitment.applyCount} + '/' + ${recruitment.recruitmentCount} + ')'"></h2>
+            <div class="status-con">
+                <h3 th:text="${recruitment.status} + '(' + ${recruitment.applyCount} + '/' + ${recruitment.recruitmentCount} + ')'"></h3>
+                <div>
+                    <span th:text="${recruitment.goal != null ? recruitment.goal : '정보 없음'}"></span> |
+                    <span th:text="${recruitment.startDate != null ? recruitment.startDate : '정보 없음'}"> </span> |
+                    <span th:text="${recruitment.challengeTime != null ? recruitment.challengeTime : '정보 없음'}"></span> |
+                    <span th:text="${recruitment.proficiency != null ? recruitment.proficiency : '정보 없음'}"></span>
+                </div>
+            </div>
             <br>
             <div class="details-title" th:if="${recruitment != null}" th:text="${recruitment.title}">제목</div>
             <div class="details-content">
-                <p><strong>목표:</strong> <span th:text="${recruitment.goal != null ? recruitment.goal : '정보 없음'}"></span></p>
-                <p><strong>시간:</strong> <span th:text="${recruitment.time != null ? recruitment.time : '정보 없음'}"></span></p>
-                <p><strong>모집 인원:</strong> <span th:text="${recruitment.recruitmentCount != null ? recruitment.recruitmentCount : '정보 없음'}"></span></p>
-                <p><strong>숙련도:</strong> <span th:text="${recruitment.proficiency != null ? recruitment.proficiency : '정보 없음'}"></span></p>
-                <p><strong>도전 시간:</strong> <span th:text="${recruitment.challengeTime != null ? recruitment.challengeTime : '정보 없음'}"></span></p>
-                <p><strong>출발 날짜:</strong> <span th:text="${recruitment.startDate != null ? recruitment.startDate : '정보 없음'}"></span></p>
+                <div class="box-container">
+                    <div th:each="i : ${#numbers.sequence(1, recruitment.recruitmentCount)}"
+                         th:with="team=${recruitmentTeams.size() >= i ? recruitmentTeams[i-1] : null}"
+                         th:class="${team != null ? 'box' : 'box empty-box'}">
+                        <!-- 지원자가 있는 경우 -->
+                        <div th:if="${team != null}" class="apply-container">
+                            <h3 th:text="${team.user.username}"></h3>
+                            <p th:text="'아이템 레벨: ' + ${team.characterEntity.itemAvgLevel}">아이템 레벨</p>
+                        </div>
+                        <!-- 지원자가 없는 경우 -->
+                        <div th:unless="${team != null}">
+                            <p>빈 자리</p>
+                        </div>
+                    </div>
+                </div>
+
                 <form id="character-form" action="/api/recruitment/submit-character" method="POST">
                     <input type="hidden" id="selected-character" name="selectedCharacter">
                     <input type="hidden" id="recruitment-id" name="recruitmentId" th:value="${recruitment.id}">
-                    <div class="form-div">
-                        <a href="#" id="apply-btn" th:onclick="${session.user != null} ? 'showCharacterModal()' : 'alert(\'로그인 후 이용해주세요\')'">지원하기</a>
+                    <div th:each="team : ${recruitmentTeams}" class="form-div">
+                        <div th:if="${session.user != null} and ${team.user.id == session.user.getId()}">
+                            <a href="#" id="apply-btn" class="disabled" th:text="'지원완료'"></a>
+                        </div>
+
+                        <div th:if="${session.user != null} and ${team.user.id != session.user.getId()}" class="form-div">
+                            <a href="#" id="apply-btn"
+                               th:onclick="${session.user != null} ? 'showCharacterModal()' : 'alert(\'로그인 후 이용해주세요\')'"
+                               th:text="'지원하기'"></a>
+                        </div>
                     </div>
+
                 </form>
+
                 <div id="character-modal" class="character-modal">
                     <div class="character-content">
                         <span class="character-close-btn" onclick="closeCharacterModal()">&times;</span>
@@ -110,23 +142,6 @@
                         </div>
                     </div>
                 </div>
-            </div>
-        </div>
-
-        <div id="chat-box" class="chat-box">
-            <div class="chat-header">
-                <h2>실시간 채팅</h2>
-                <button class="chat-close-btn" onclick="closeChat()">×</button>
-            </div>
-            <div class="chat-info">
-                <p>해당 모집글에 지원한 회원들과 이야기를 나눠보세요.</p>
-            </div>
-            <div id="chat-messages" class="chat-messages">
-                <!-- 여기에 채팅 메시지가 표시됨 -->
-            </div>
-            <div class="chat-input-box">
-                <input type="text" id="chat-input" placeholder="메시지를 입력하세요..." class="chat-input">
-                <button type="button" class="chat-send-btn" onclick="sendMessage()">전송</button>
             </div>
         </div>
     </section>

@@ -94,9 +94,10 @@ public class RecruitmentController {
         if (recruitmentEntity.getStartDate().isBefore(today)) {
             throw new RuntimeException("You cannot select a past date.");
         }
-
+        recruitmentEntity.setApplyCount(0);
         recruitmentEntity.setStatus("모집 중");
         recruitmentService.save(recruitmentEntity);
+        recruitmentTeamService.saveRecruitmentCharacter(recruitmentEntity.getId(), String.valueOf(recruitmentEntity.getCharacterEntity().getId()), user);
 
         return "redirect:/api/recruitment";
     }
@@ -127,14 +128,17 @@ public class RecruitmentController {
         UserEntity user = (UserEntity) session.getAttribute("user");
         Optional<RecruitmentEntity> recruitment = recruitmentService.findById(id);
         if (user != null) {
-            List<CharacterEntity> characterList = user.getCharacters();
+            List<CharacterEntity> characterList = characterService.getCharactersByUserId(user.getId());
             model.addAttribute("characterList", characterList);
-            log.info(">>>>> 저장된 캐릭터들 :: " + user.getCharacters().toString());
         }
         if (recruitment.isEmpty()) {
             return "redirect:/api/recruitment";
         }
         model.addAttribute("recruitment", recruitment.get());
+
+        List<RecruitmentTeamEntity> recruitmentTeams = recruitmentTeamService.findAllRecruitmentTeams();
+        model.addAttribute("recruitmentTeams", recruitmentTeams);
+
         return "recruitment/recruitmentDetails";
     }
 
@@ -147,7 +151,6 @@ public class RecruitmentController {
         UserEntity user = (UserEntity) session.getAttribute("user");
         try {
             recruitmentTeamService.saveRecruitmentCharacter(recruitmentId, selectedCharacterId, user);
-            log.info("저장완료.");
             return "redirect:/api/recruitment/details/" + recruitmentId;
         } catch (Exception e) {
             e.printStackTrace();

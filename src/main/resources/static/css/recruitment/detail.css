@@ -1,3 +1,12 @@
+#reside-con {
+    flex: 1;
+    margin-left: 100px;
+    margin-right: 100px;
+}
+.status-con {
+    display: flex;
+    justify-content: space-between;
+}
 .writer-con {
     display: flex;
     align-items: center;
@@ -9,6 +18,7 @@
     background-color: #fff;
     max-width: 400px;
     margin-bottom: 40px;
+    margin: auto;
 }
 
 .profile-picture {
@@ -146,13 +156,14 @@
 
 /* 상세 박스 레이아웃 */
 .details-box {
-    width: 100%;
-    margin: 0 auto;
+    width: 70%;
+    margin: auto;
     padding: 20px;
     background-color: #fff;
     border-radius: 10px;
     box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
     font-family: 'Arial', sans-serif;
+    margin-top: 20px;
 }
 
 /* 제목 스타일 */
@@ -160,8 +171,8 @@
     font-size: 28px;
     font-weight: bold;
     margin-bottom: 20px;
-    text-align: center;
     color: #333;
+    margin-top: 10px;
 }
 
 /* 컨텐츠 스타일 */
@@ -353,4 +364,34 @@ button:hover {
     color: white;
     border: none;
     cursor: pointer;
+}
+
+.details-content .box-container {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+}
+
+.details-content .box {
+    width: 100px;
+    height: 80px;
+    background-color: #f0f0f0;
+    border: 1px solid #ccc;
+    border-radius: 10px;
+}
+
+@media (min-width: 600px) {
+    .details-content .box {
+        flex-basis: calc(25% - 10px);
+    }
+}
+.apply-container {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.disabled-btn {
+    opacity: 0.5;
+    cursor: not-allowed;
 }
