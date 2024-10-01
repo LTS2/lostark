@@ -14,6 +14,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import java.time.LocalDate;
 import java.util.HashMap;
@@ -61,8 +62,6 @@ public class RecruitmentController {
         // 캐릭터 목록 추가
         List<CharacterEntity> characters = result.getCharacters();
         model.addAttribute("characters", characters);
-        log.info("characters Lv ==>> {}", characters.get(1).getCharacterLevel());
-
         return "recruitment/createRecruitment";
     }
 
@@ -84,10 +83,6 @@ public class RecruitmentController {
         }
 
         recruitmentEntity.setCharacterEntity(character);
-
-        log.info("character == {}", character.getCharacterName());
-        log.info("character == {}", character);
-
         recruitmentEntity.setUser(user);
 
         LocalDate today = LocalDate.now();
@@ -137,8 +132,12 @@ public class RecruitmentController {
         model.addAttribute("recruitment", recruitment.get());
 
         List<RecruitmentTeamEntity> recruitmentTeams = recruitmentTeamService.findAllRecruitmentTeams();
-        model.addAttribute("recruitmentTeams", recruitmentTeams);
+        Long recruitmentId = id;
+        List<RecruitmentTeamEntity> rtTeams = recruitmentTeamService.findTeamsByRecruitmentId(recruitmentId);
 
+        model.addAttribute("recruitmentTeams", recruitmentTeams);
+        model.addAttribute("rtTeams", rtTeams);
+        model.addAttribute("sessionUser", user);
         return "recruitment/recruitmentDetails";
     }
 
@@ -157,5 +156,24 @@ public class RecruitmentController {
             model.addAttribute("error", e.getMessage());
             return "redirect:/api/recruitment/details/" + recruitmentId;
         }
+    }
+
+    /* 모집글 삭제 */
+    @PostMapping("/delete/{id}")
+    public String deleteRecruitment(@PathVariable Long id,
+                                    HttpSession session) {
+        UserEntity user = (UserEntity) session.getAttribute("user");
+        recruitmentService.deleteRecruitment(id);
+        return "redirect:/api/recruitment";
+    }
+
+    /* 모집글 지원 취소 */
+    @PostMapping("/cancel/{id}")
+    public String cancleRecruitment(@PathVariable Long id,
+                                    HttpSession session) {
+        UserEntity user = (UserEntity) session.getAttribute("user");
+        Long userId = user.getId();
+        recruitmentTeamService.cancelApplication(id, userId, session);
+        return "redirect:/api/recruitment/details/" + id;
     }
 }

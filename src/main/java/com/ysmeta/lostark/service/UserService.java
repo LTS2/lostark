@@ -1,14 +1,8 @@
 package com.ysmeta.lostark.service;
 
 import com.ysmeta.lostark.dto.RequestDTO;
-import com.ysmeta.lostark.entity.CharacterEntity;
-import com.ysmeta.lostark.entity.GuestbookEntity;
-import com.ysmeta.lostark.entity.RecruitmentEntity;
-import com.ysmeta.lostark.entity.UserEntity;
-import com.ysmeta.lostark.repository.CharacterRepository;
-import com.ysmeta.lostark.repository.GuestbookRepository;
-import com.ysmeta.lostark.repository.RecruitmentRepository;
-import com.ysmeta.lostark.repository.UserRepository;
+import com.ysmeta.lostark.entity.*;
+import com.ysmeta.lostark.repository.*;
 import jakarta.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -37,19 +31,25 @@ public class UserService {
 
     @Autowired
     private RecruitmentRepository recruitmentRepository;
-
     @Autowired
     private final GuestbookRepository guestbookRepository;
 
+    @Autowired
     private final CharacterRepository characterRepository;
+
+    @Autowired
+    private final RecruitmentTeamRepository recruitmentTeamRepository;
 
     public UserService(UserRepository userRepository,
                        RecruitmentRepository recruitmentRepository,
-                       GuestbookRepository guestbookRepository, CharacterRepository characterRepository) {
+                       GuestbookRepository guestbookRepository,
+                       CharacterRepository characterRepository,
+                       RecruitmentTeamRepository recruitmentTeamRepository) {
         this.userRepository = userRepository;
         this.recruitmentRepository = recruitmentRepository;
         this.guestbookRepository = guestbookRepository;
         this.characterRepository = characterRepository;
+        this.recruitmentTeamRepository = recruitmentTeamRepository;
     }
 
     public void saveUser(UserEntity user) {
@@ -109,6 +109,11 @@ public class UserService {
         return recruitmentRepository.findByUserId(user.getId());
     }
 
+    /* 회원이 지원한 모집글 불러오기 */
+    public List<RecruitmentTeamEntity> getRecruitTeamList(UserEntity user) {
+        return recruitmentTeamRepository.findByUserId(user.getId());
+    }
+
     /* 방명록 작성 */
     public void saveGuestbook(RequestDTO requestDTO, HttpSession session) {
 
@@ -133,7 +138,4 @@ public class UserService {
     public List<GuestbookEntity> getGuestbookEntityList(Long targetUserId) {
         return guestbookRepository.findByTargetUserIdOrderByCreatedAtDesc(targetUserId);
     }
-
-
-
 }

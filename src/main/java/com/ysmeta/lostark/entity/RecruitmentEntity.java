@@ -5,6 +5,7 @@ import lombok.Getter;
 import lombok.Setter;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.util.List;
 
 /**
  * @author : ejum
@@ -58,6 +59,9 @@ public class RecruitmentEntity {
     @ManyToOne
     @JoinColumn(name = "user_id")
     private UserEntity user;
+
+    @OneToMany(mappedBy = "recruitmentEntity", cascade = CascadeType.REMOVE, orphanRemoval = true)
+    private List<RecruitmentTeamEntity> recruitmentTeams;
 
     @PrePersist
     public void prePersist() {
