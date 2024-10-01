@@ -40,4 +40,7 @@ public class RecruitmentService {
         return recruitmentRepository.findById(id);
     }
 
+  public void deleteRecruitment(Long id) {
+        recruitmentRepository.deleteById(id);
+  }
 }

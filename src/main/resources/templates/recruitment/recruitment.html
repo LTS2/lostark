@@ -122,7 +122,12 @@
 
         <!-- 하위 박스들 -->
         <div class="box-container">
-            <div th:each="recruitment : ${recruitments}" class="box" th:data-url="@{/api/recruitment/details/{id}(id=${recruitment.id})}">
+            <div th:each="recruitment : ${recruitments}" class="box" th:data-url="@{/api/recruitment/details/{id}(id=${recruitment.id})}" style="position: relative;">
+                <!-- 모집 상태: 오른쪽 상단에 표시 -->
+                <div class="box-status" th:classappend="${recruitment.status == '모집 중'} ? 'status-open' : 'status-closed'"
+                     style="position: absolute; top: 10px; right: 10px; font-weight: bold; padding: 5px; color: white;">
+                    <span th:text="${recruitment.status}"></span>
+                </div>
                 <div class="box-title" th:text="${recruitment.title}"></div>
                 <div class="box-details">
                     <p><strong>목표:</strong> <span th:text="${recruitment.goal}"></span></p>

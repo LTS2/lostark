@@ -25,7 +25,20 @@
 
   </div>
 
+<!--  <div class="post-list">-->
+<!--    <div th:each="post : ${postPage.content}" class="post-card">-->
+<!--      <h3><a th:href="@{/community/view/{id}(id=${post.id})}" th:text="${post.title}"></a></h3>-->
+<!--      <p th:text="${post.content}"></p>-->
+<!--      <div class="post-meta">-->
+<!--        Posted by <span th:text="${post.user.username}"></span>-->
+<!--        <span th:text="${#temporals.format(post.createdAt, 'yyyy-MM-dd HH:mm')}"></span>-->
+<!--      </div>-->
+<!--    </div>-->
+<!--  </div>-->
   <div class="post-list">
+    <div th:if="${postPage.content.size() == 0}" class="no-posts-message">
+      <p>게시글이 없습니다.</p>
+    </div>
     <div th:each="post : ${postPage.content}" class="post-card">
       <h3><a th:href="@{/community/view/{id}(id=${post.id})}" th:text="${post.title}"></a></h3>
       <p th:text="${post.content}"></p>
@@ -36,7 +49,7 @@
     </div>
   </div>
 
-  <div class="pagination">
+  <div class="pagination" th:if="${postPage.content.size() > 0}">
     <a th:href="@{/community(page=${postPage.number - 1})}"
        th:if="${postPage.hasPrevious()}"
        class="pagination-button">&#171; 이전</a>

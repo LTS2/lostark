@@ -7,10 +7,14 @@ import com.ysmeta.lostark.entity.UserEntity;
 import com.ysmeta.lostark.repository.CharacterRepository;
 import com.ysmeta.lostark.repository.RecruitmentRepository;
 import com.ysmeta.lostark.repository.RecruitmentTeamRepository;
+import com.ysmeta.lostark.repository.UserRepository;
+import jakarta.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
+import java.util.NoSuchElementException;
 
 
 /**
@@ -25,14 +29,17 @@ public class RecruitmentTeamService {
     private final RecruitmentTeamRepository recruitmentTeamRepository;
     private final RecruitmentRepository recruitmentRepository;
     private final CharacterRepository characterRepository;
+    private final UserRepository userRepository;
 
     @Autowired
     public RecruitmentTeamService(RecruitmentTeamRepository recruitmentTeamRepository,
                                   RecruitmentRepository recruitmentRepository,
-                                  CharacterRepository characterRepository) {
+                                  CharacterRepository characterRepository,
+                                  UserRepository userRepository) {
         this.recruitmentTeamRepository = recruitmentTeamRepository;
         this.recruitmentRepository = recruitmentRepository;
         this.characterRepository = characterRepository;
+        this.userRepository = userRepository;
     }
 
 
@@ -64,5 +71,27 @@ public class RecruitmentTeamService {
 
     public List<RecruitmentTeamEntity> findAllRecruitmentTeams() {
         return recruitmentTeamRepository.findAll();
+    }
+
+    public List<RecruitmentTeamEntity> findTeamsByRecruitmentId(Long recruitmentId) {
+        return recruitmentTeamRepository.findByRecruitmentEntity_Id(recruitmentId);
+    }
+
+    @Transactional
+    public void cancelApplication(Long id, Long userId, HttpSession session) {
+        // 세션에서 사용자 정보 가져오기
+        UserEntity user = (UserEntity) session.getAttribute("user");
+        if (user == null || !user.getId().equals(userId)) {
+            throw new IllegalArgumentException("Invalid user session");
+        }
+
+        // 모집글 엔티티 찾기
+        RecruitmentEntity recruitment = recruitmentRepository.findById(id)
+            .orElseThrow(() -> new NoSuchElementException("Recruitment not found"));
+
+        // 지원 취소
+        recruitmentTeamRepository.deleteByRecruitmentEntityAndUser(recruitment, user);
+        recruitmentRepository.decrementApplyCount(id);
+        recruitmentRepository.setRecruitmentStatusToOngoing(id);
     }
 }

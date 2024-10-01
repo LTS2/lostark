@@ -32,6 +32,7 @@
                 <table class="dashboard-table">
                     <thead>
                     <tr>
+                        <th>구분</th>
                         <th>목표</th>
                         <th>모집인원</th>
                         <th>숙련도</th>
@@ -40,17 +41,32 @@
                     </tr>
                     </thead>
                     <tbody>
-                    <tr th:each="recruit : ${recruitList}" th:if="${recruitList.size() > 0}">
+                    <!-- recruitList 출력 -->
+                    <tr th:each="recruit : ${recruitList}">
+                        <td>모집글 작성</td>
                         <td th:text="${recruit.goal}"></td>
                         <td th:text="${recruit.recruitmentCount}"></td>
                         <td th:text="${recruit.proficiency}"></td>
                         <td th:text="${recruit.startDate}"></td>
                         <td th:text="${#temporals.format(recruit.createdDate, 'yyyy-MM-dd')}"></td>
                     </tr>
-                    <tr th:unless="${recruitList.size() > 0}">
-                        <td colspan="5">활동내역이 없습니다.</td>
+
+                    <!-- rtList 출력 -->
+                    <tr th:each="recruitmentTeam : ${rtList}">
+                        <td>모집글 참여</td>
+                        <td th:text="${recruitmentTeam.recruitmentEntity.goal}"></td>
+                        <td th:text="${recruitmentTeam.recruitmentEntity.recruitmentCount}"></td>
+                        <td th:text="${recruitmentTeam.recruitmentEntity.proficiency}"></td>
+                        <td th:text="${recruitmentTeam.recruitmentEntity.startDate}"></td>
+                        <td th:text="${#temporals.format(recruitmentTeam.recruitmentEntity.createdDate, 'yyyy-MM-dd')}"></td>
+                    </tr>
+
+                    <!-- recruitList 또는 rtList가 비어 있을 때 메시지 출력 -->
+                    <tr th:if="${recruitList.size() == 0 and rtList.size() == 0}">
+                        <td colspan="6">모집글이 없습니다.</td>
                     </tr>
                     </tbody>
+
                 </table>
             </div>
         </section>

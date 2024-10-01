@@ -3,6 +3,7 @@ package com.ysmeta.lostark.controller;
 import com.ysmeta.lostark.dto.RequestDTO;
 import com.ysmeta.lostark.entity.GuestbookEntity;
 import com.ysmeta.lostark.entity.RecruitmentEntity;
+import com.ysmeta.lostark.entity.RecruitmentTeamEntity;
 import com.ysmeta.lostark.entity.UserEntity;
 import com.ysmeta.lostark.service.UserService;
 import jakarta.servlet.http.HttpSession;
@@ -47,6 +48,11 @@ public class MyPageController {
     public String myPage(HttpSession session,
                          Model model) {
         List<RecruitmentEntity> recruitList = userService.getRecruitList(user);
+        List<RecruitmentTeamEntity> rtList = userService.getRecruitTeamList(user);
+        if (rtList != null) {
+            System.out.println("지원한 리스트 :: " + rtList);
+            model.addAttribute("rtList", rtList);
+        }
         model.addAttribute("user", user);
         model.addAttribute("recruitList", recruitList);
         return "/my-page/activity";
