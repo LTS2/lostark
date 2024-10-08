@@ -18,6 +18,7 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import java.io.IOException;
 import java.util.*;
+import java.util.stream.Collectors;
 
 /**
  * MyPage Controller
@@ -49,10 +50,17 @@ public class MyPageController {
                          Model model) {
         List<RecruitmentEntity> recruitList = userService.getRecruitList(user);
         List<RecruitmentTeamEntity> rtList = userService.getRecruitTeamList(user);
+        // 모집글 참여 리스트 중, 모집글 작성 리스트에 포함되지 않은 항목만 필터링
         if (rtList != null) {
-            System.out.println("지원한 리스트 :: " + rtList);
-            model.addAttribute("rtList", rtList);
+            List<RecruitmentTeamEntity> filteredRtList = rtList.stream()
+                    .filter(rt -> recruitList.stream()
+                            .noneMatch(recruit -> recruit.getId().equals(rt.getRecruitmentEntity().getId())))
+                    .collect(Collectors.toList());
+
+            // 필터링된 모집글 참여 리스트를 모델에 추가
+            model.addAttribute("rtList", filteredRtList);
         }
+
         model.addAttribute("user", user);
         model.addAttribute("recruitList", recruitList);
         return "/my-page/activity";

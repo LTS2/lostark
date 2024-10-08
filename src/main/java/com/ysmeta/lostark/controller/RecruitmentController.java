@@ -21,6 +21,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 /**
  * @author : ejum
@@ -135,8 +136,13 @@ public class RecruitmentController {
         Long recruitmentId = id;
         List<RecruitmentTeamEntity> rtTeams = recruitmentTeamService.findTeamsByRecruitmentId(recruitmentId);
 
+        List<Long> userIds = rtTeams.stream()
+                .map(rt -> rt.getUser().getId())
+                .collect(Collectors.toList());
+
         model.addAttribute("recruitmentTeams", recruitmentTeams);
         model.addAttribute("rtTeams", rtTeams);
+        model.addAttribute("userIds", userIds);
         model.addAttribute("sessionUser", user);
         return "recruitment/recruitmentDetails";
     }
