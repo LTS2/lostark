@@ -117,7 +117,7 @@ public class MyPageController {
     }
 
     /*
-    * 방명록 작성
+    * 코멘트 작성
     * */
     @PostMapping("/guestbook")
     public ResponseEntity<?> addGuestbookEntry(@RequestBody RequestDTO requestDTO,

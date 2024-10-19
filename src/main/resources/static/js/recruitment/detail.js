@@ -24,7 +24,7 @@ function closeCharacterModal() {
     document.getElementById("character-modal").style.display = "none";
 }
 
-/* 방명록 작성 */
+/* 코멘트 작성 */
 function submitGuestbook() {
     const comment = document.getElementById('guestbook-comment').value;
     const userId = document.getElementById('userId').value;

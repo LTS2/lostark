@@ -28,14 +28,14 @@ public class GuestbookEntity {
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "user_id", nullable = false)
-    private UserEntity user; // 방명록 작성자
+    private UserEntity user; // 코멘트 작성자
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "target_user_id", nullable = false)
     private UserEntity targetUser; // 방명록이 작성되는 대상 회원
 
     @Column(name = "username", nullable = false)
-    private String username; // 방명록 작성자 닉네임
+    private String username; // 코멘트 작성자 닉네임
 
     @Column(name = "comment", nullable = false, length = 1000)
     private String comment;
