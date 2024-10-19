@@ -10,6 +10,8 @@
     <!-- content script -->
     <th:block th:replace="~{fragments/config::configFragment}"></th:block>
     <link rel="stylesheet" th:href="@{/css/my-page/activity.css}">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+
 
 </head>
 <!--	<th:block layout:fragment="css"></th:block>-->
@@ -38,6 +40,7 @@
                         <th>숙련도</th>
                         <th>출발날짜</th>
                         <th>작성일</th>
+                        <th>참여자</th>
                     </tr>
                     </thead>
                     <tbody>
@@ -49,6 +52,12 @@
                         <td th:text="${recruit.proficiency}"></td>
                         <td th:text="${recruit.startDate}"></td>
                         <td th:text="${#temporals.format(recruit.createdDate, 'yyyy-MM-dd')}"></td>
+                        <td>
+                            <a th:href="@{/mypage/recruitment/details/{id}(id=${recruit.id})}" class="details-btn">
+                                참여자 보기 <i class="fas fa-arrow-alt-circle-right"></i>
+                            </a>
+
+                        </td>
                     </tr>
 
                     <!-- rtList 출력 -->
@@ -59,6 +68,11 @@
                         <td th:text="${recruitmentTeam.recruitmentEntity.proficiency}"></td>
                         <td th:text="${recruitmentTeam.recruitmentEntity.startDate}"></td>
                         <td th:text="${#temporals.format(recruitmentTeam.recruitmentEntity.createdDate, 'yyyy-MM-dd')}"></td>
+                        <td>
+                            <a th:href="@{/mypage/recruitment/details/{id}(id=${recruitmentTeam.recruitmentEntity.getId()})}" class="details-btn">
+                                참여자 보기 <i class="fas fa-arrow-alt-circle-right"></i>
+                            </a>
+                        </td>
                     </tr>
 
                     <!-- recruitList 또는 rtList가 비어 있을 때 메시지 출력 -->

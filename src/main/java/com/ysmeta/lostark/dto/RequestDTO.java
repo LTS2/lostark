@@ -23,4 +23,6 @@ public class RequestDTO {
     private Long targetUserId;
     private String username;
     private String comment;
+    private Long recruitmentId;
+    private String goal;
 }

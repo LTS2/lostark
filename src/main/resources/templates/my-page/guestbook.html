@@ -31,16 +31,6 @@
             </div>
             <br>
             <br>
-<!--            <div class="dashboard-write">-->
-<!--                <div class="guest-textarea">-->
-<!--                    <label for="guestbook-comment" class="screen_out">방명록 작성</label>-->
-<!--                    <textarea id="guestbook-comment" placeholder="내용을 입력하세요." class="guest-textarea-input"></textarea>-->
-<!--                    <div class="guest-submit-con">-->
-<!--                        <button type="submit" class="guest-submit-btn">등록</button>-->
-<!--                    </div>-->
-<!--                </div>-->
-<!--            </div>-->
-
             <div class="guestbook-total">
                 <span class="tt_txt_g">방명록</span>
                 <span class="tt_num_g" th:text="${totalGuestbooks}"></span>
@@ -49,11 +39,13 @@
                 <ul>
                     <li th:each="guestbook : ${guestbookList}">
                         <strong th:text="${guestbook.username}"></strong>
+                        <span class="guestbook-goal" th:text="'목표 :: ' + ${guestbook.goal}"></span>
                         <span class="guestbook-time" th:text="${#temporals.format(guestbook.createdAt, 'yyyy-MM-dd HH:mm')}"></span>
                         <p th:text="${guestbook.comment}"></p>
                     </li>
                 </ul>
             </div>
+
         </section>
         <input type="hidden" id="username" th:value="${session.user.getUsername()}">
         <input type="hidden" id="userId" th:value="${session.user.getId()}">

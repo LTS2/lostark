@@ -43,6 +43,10 @@ public class GuestbookEntity {
     @Column(name = "created_at", nullable = false)
     private LocalDateTime createdAt;
 
+    // 해당 모집글 목표
+    @Column(name = "goal", nullable = false)
+    private String goal;
+
     @PrePersist
     public void prePersist() {
         this.createdAt = LocalDateTime.now();
