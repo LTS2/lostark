@@ -114,7 +114,7 @@ public class UserService {
         return recruitmentTeamRepository.findByUserId(user.getId());
     }
 
-    /* 방명록 작성 */
+    /* 코멘트 작성 */
     public void saveGuestbook(RequestDTO requestDTO, HttpSession session) {
 
         UserEntity writer = (UserEntity) session.getAttribute("user");
