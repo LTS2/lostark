@@ -24,11 +24,14 @@ function closeCharacterModal() {
     document.getElementById("character-modal").style.display = "none";
 }
 
+/* 방명록 작성 */
 function submitGuestbook() {
     const comment = document.getElementById('guestbook-comment').value;
     const userId = document.getElementById('userId').value;
     const username = document.getElementById('username').value;
     const targetUserId = document.getElementById('targetUserId').value;
+    const recruitmentId = document.getElementById('recruitmentId').value;
+
     if (!comment) {
         alert('내용을 입력하세요.');
         return;
@@ -43,7 +46,8 @@ function submitGuestbook() {
             userId: userId,
             targetUserId: targetUserId,
             username: username,
-            comment: comment
+            comment: comment,
+            recruitmentId: recruitmentId
         })
     })
         .then(response => {

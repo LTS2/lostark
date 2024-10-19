@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="en"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
+<head>
+    <meta charset="UTF-8"/>
+    <title>thymeleaf layout</title>
+    <meta name="viewport"
+          content="width=device-width, maximum-scale=1.0, minimum-scale=1, user-scalable=yes,initial-scale=1.0"/>
+    <!-- content script -->
+    <th:block th:replace="~{fragments/config::configFragment}"></th:block>
+    <link rel="stylesheet" th:href="@{/css/my-page/activity.css}">
+    <link rel="stylesheet" th:href="@{/css/my-page/act.css}">
+
+</head>
+
+<body>
+<th:block th:replace="~{fragments/header :: headerFragment}"></th:block>
+
+<main style="margin-top: 20px;" id="side-con">
+    <th:block th:replace="~{fragments/sidebar :: sideBarFragment}"></th:block>
+    <section class="content" id="activity-content">
+        <div>
+            <h1>참여한 회원 정보</h1>
+        </div>
+        <br>
+        <br>
+        <div class="dashboard-section">
+            <table class="dashboard-table">
+                <thead>
+                <tr>
+                    <th>회원아이디</th>
+                    <th>캐릭터명</th>
+                    <th>캐릭터레벨</th>
+                    <th>아이템레벨</th>
+                    <th>직업명</th>
+                    <th>방명록</th>
+                </tr>
+                </thead>
+                <tbody>
+                    <tr th:each="user, iterStat : ${applyUsers}">
+                        <td th:text="${user.user.username}"></td>
+                        <td th:text="${user.characterEntity.characterName}"></td>
+                        <td th:text="${user.characterEntity.characterLevel}"></td>
+                        <td th:text="${user.characterEntity.itemAvgLevel}"></td>
+                        <td th:text="${user.characterEntity.characterClassName}"></td>
+                        <td>
+                            <form th:attr="id='guestbookForm' + ${iterStat.index}">
+                                <input type="hidden" name="userId" th:value="${loginUser.getId()}"/>
+                                <input type="hidden" name="username" th:value="${loginUser.getUsername()}"/>
+                                <input type="hidden" name="targetUserId" th:value="${user.getId()}"/>
+                                <input type="hidden" name="recruitmentId" th:value="${recruitment.get().getId()}">
+                                <textarea name="comment" class="comment-input" placeholder="방명록을 작성해 주세요" rows="3" cols="20"></textarea>
+                                <br>
+                                <button type="submit">방명록 작성</button>
+                            </form>
+                        </td>
+                    </tr>
+                </tbody>
+
+            </table>
+        </div>
+    </section>
+</main>
+
+<th:block th:replace="~{fragments/footer :: footerFragment}"></th:block>
+
+<script>
+    document.addEventListener("DOMContentLoaded", function() {
+        const forms = document.querySelectorAll("form[id^='guestbookForm']");
+        forms.forEach(form => {
+            form.addEventListener('submit', function(event) {
+                event.preventDefault();
+
+                const formData = new FormData(this);
+                const requestData = {
+                    userId: formData.get('userId'),
+                    targetUserId: formData.get('targetUserId'),
+                    username: formData.get('username'),
+                    comment: formData.get('comment'),
+                    recruitmentId: formData.get('recruitmentId'),
+                };
+
+                fetch('/mypage/guestbook', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify(requestData),
+                })
+                    .then(response => {
+                        if (!response.ok) {
+                            throw new Error('네트워크 오류...');
+                        }
+                        return response.text();
+                    })
+                    .then(message => {
+                        alert(message);
+                        const textarea = form.querySelector("textarea[name='comment']");
+                        if (textarea) {
+                            textarea.value = '';
+                        }
+                    })
+                    .catch(error => {
+                        console.error('ERROR :: ', error);
+                        alert('방명록 등록 중 오류가 발생했습니다.');
+                    });
+            });
+        });
+    });
+</script>
+</body>
+</html>

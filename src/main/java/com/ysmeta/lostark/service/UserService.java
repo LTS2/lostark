@@ -125,12 +125,14 @@ public class UserService {
                 .orElseThrow(() -> new RuntimeException("대상 회원을 찾을 수 없습니다."));
 
         String comment = requestDTO.getComment();
+        String goal = requestDTO.getGoal();
 
         GuestbookEntity guestbookEntry = new GuestbookEntity();
         guestbookEntry.setUser(writer);
         guestbookEntry.setTargetUser(targetUser);
         guestbookEntry.setUsername(writer.getUsername());
         guestbookEntry.setComment(comment);
+        guestbookEntry.setGoal(goal);
 
         guestbookRepository.save(guestbookEntry);
     }

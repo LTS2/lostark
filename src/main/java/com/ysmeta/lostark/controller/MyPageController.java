@@ -5,6 +5,8 @@ import com.ysmeta.lostark.entity.GuestbookEntity;
 import com.ysmeta.lostark.entity.RecruitmentEntity;
 import com.ysmeta.lostark.entity.RecruitmentTeamEntity;
 import com.ysmeta.lostark.entity.UserEntity;
+import com.ysmeta.lostark.service.RecruitmentService;
+import com.ysmeta.lostark.service.RecruitmentTeamService;
 import com.ysmeta.lostark.service.UserService;
 import jakarta.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -34,6 +36,12 @@ public class MyPageController {
 
     @Autowired
     private UserService userService;
+
+    @Autowired
+    private RecruitmentService recruitmentService;
+
+    @Autowired
+    private RecruitmentTeamService recruitmentTeamService;
 
     private UserEntity user;
 
@@ -115,10 +123,33 @@ public class MyPageController {
     public ResponseEntity<?> addGuestbookEntry(@RequestBody RequestDTO requestDTO,
                                                HttpSession session) {
        try {
+           Optional<RecruitmentEntity> recruitmentOpt = recruitmentService.findById(requestDTO.getRecruitmentId());
+           String goal = recruitmentOpt.map(RecruitmentEntity::getGoal).orElse("모집글을 찾을 수 없습니다.");
+           requestDTO.setGoal(goal);
            userService.saveGuestbook(requestDTO, session);
            return ResponseEntity.ok("방명록이 등록되었습니다.");
         } catch (Exception e) {
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("방명록 등록 중 오류가 발생했습니다.");
         }
     }
- }
+
+    /* 마이페이지 > 지원한 모집글 정보 */
+    @GetMapping("/recruitment/details/{id}")
+    public String getRecruitmentDetails(@PathVariable Long id,
+                                        Model model,
+                                        HttpSession session) {
+        // 해당 모집글 정보
+        Optional<RecruitmentEntity> recruitment = recruitmentService.findById(id);
+
+        // 해당 모집글의 모든 참여자
+        List<RecruitmentTeamEntity> applyUsers = recruitmentTeamService.findTeamsByRecruitmentId(id);
+        model.addAttribute("applyUsers", applyUsers);
+        model.addAttribute("recruitment", recruitment);
+
+        user = (UserEntity) session.getAttribute("user");
+        model.addAttribute("loginUser", user);
+        model.addAttribute("user", user);
+        return "/my-page/act";
+    }
+
+}
