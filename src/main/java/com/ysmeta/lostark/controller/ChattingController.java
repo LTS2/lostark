@@ -17,14 +17,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import java.util.Set;
 import java.util.concurrent.ConcurrentHashMap;
 
-/**
- * Chatting 컨트롤러
- *
- * @author : minjooo
- * @fileName : ChattingController
- * @since : 2024/08/23
- */
-
 @Controller
 @RequestMapping("/chatting")
 public class ChattingController {

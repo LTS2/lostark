@@ -22,14 +22,6 @@ import java.io.IOException;
 import java.util.*;
 import java.util.stream.Collectors;
 
-/**
- * MyPage Controller
- *
- * @author : minjooo
- * @fileName : MyPageController
- * @since : 2024/08/22
- */
-
 @Controller
 @RequestMapping("/mypage")
 public class MyPageController {

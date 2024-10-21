@@ -10,14 +10,6 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
-/**
- * 커뮤니티 Controller
- *
- * @author : minjooo
- * @fileName : CommunityController
- * @since : 2024/09/17
- */
-
 @Slf4j
 @Controller
 @RequestMapping("/community")

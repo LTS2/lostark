@@ -14,11 +14,6 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import java.io.IOException;
 import java.util.List;
 
-/**
- * @author : ejum
- * @fileName : CharacterContoller
- * @since : 8/25/24
- */
 @Controller
 @Slf4j
 @RequestMapping("/api/user/lostArk")

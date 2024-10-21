@@ -23,11 +23,6 @@ import java.util.Map;
 import java.util.Optional;
 import java.util.stream.Collectors;
 
-/**
- * @author : ejum
- * @fileName : RecruitmentController
- * @since : 8/23/24
- */
 @Slf4j
 @Controller
 @RequestMapping("/api/recruitment")

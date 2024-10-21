@@ -7,11 +7,6 @@ import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.List;
 
-/**
- * @author : ejum
- * @fileName : RecruitmentEntity
- * @since : 8/25/24
- */
 @Entity
 @Getter
 @Setter

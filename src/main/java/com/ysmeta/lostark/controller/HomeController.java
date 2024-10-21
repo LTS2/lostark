@@ -7,13 +7,6 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 
-/**
- * Home Controller
- *
- * @author : minjooo
- * @fileName : HomeControoler
- * @since : 2024/08/22
- */
 @Controller
 public class HomeController {
 

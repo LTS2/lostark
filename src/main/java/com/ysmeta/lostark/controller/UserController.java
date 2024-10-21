@@ -11,11 +11,6 @@ import org.springframework.web.bind.annotation.*;
 import java.util.HashMap;
 import java.util.Map;
 
-/**
- * @author : ejum
- * @fileName : UserController
- * @since : 8/23/24
- */
 @Controller
 @RequestMapping("/api/user")
 public class UserController {

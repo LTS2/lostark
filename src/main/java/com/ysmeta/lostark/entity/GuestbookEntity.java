@@ -7,14 +7,6 @@ import lombok.ToString;
 
 import java.time.LocalDateTime;
 
-/**
- * 방명록 엔티티
- *
- * @author : minjooo
- * @fileName : GuestbookEntity
- * @since : 2024/09/03
- */
-
 @Getter
 @Setter
 @Entity

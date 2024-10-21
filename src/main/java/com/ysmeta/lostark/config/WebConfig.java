@@ -5,14 +5,6 @@ import org.springframework.web.servlet.config.annotation.CorsRegistry;
 import org.springframework.web.servlet.config.annotation.ResourceHandlerRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 
-/**
- * WebConfig 설정
- *
- * @author : minjooo
- * @fileName : WebConfig
- * @since : 2024/08/30
- */
-
 @Configuration
 public class WebConfig implements WebMvcConfigurer {
 

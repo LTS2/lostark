@@ -6,11 +6,6 @@ import org.springframework.stereotype.Repository;
 
 import java.util.List;
 
-/**
- * @author : ejum
- * @fileName : CharacterRepository
- * @since : 8/25/24
- */
 @Repository
 public interface CharacterRepository extends JpaRepository<CharacterEntity, Long> {
     List<CharacterEntity> findByUserId(Long userId);

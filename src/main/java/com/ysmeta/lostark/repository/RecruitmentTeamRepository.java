@@ -9,12 +9,6 @@ import org.springframework.stereotype.Repository;
 
 import java.util.List;
 
-/**
- * @author : minjooo
- * @fileName : RecruitmentTeamRepository
- * @since : 2024/09/19
- */
-
 @Repository
 public interface RecruitmentTeamRepository extends JpaRepository<RecruitmentTeamEntity, Long> {
   boolean existsByUserAndRecruitmentEntityAndCharacterEntity(UserEntity user, RecruitmentEntity recruitmentEntity, CharacterEntity characterEntity);
