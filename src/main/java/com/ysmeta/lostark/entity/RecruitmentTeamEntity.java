@@ -7,12 +7,6 @@ import lombok.ToString;
 
 import java.time.LocalDateTime;
 
-/**
- * @author : minjooo
- * @fileName : RecruitmentTeamEntity
- * @since : 2024/09/19
- */
-
 @Entity
 @Getter
 @Setter

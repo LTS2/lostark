@@ -16,13 +16,6 @@ import org.springframework.transaction.annotation.Transactional;
 import java.util.List;
 import java.util.NoSuchElementException;
 
-
-/**
- * @author : minjooo
- * @fileName : RecruitmentTeamService
- * @since : 2024/09/19
- */
-
 @Service
 public class RecruitmentTeamService {
 

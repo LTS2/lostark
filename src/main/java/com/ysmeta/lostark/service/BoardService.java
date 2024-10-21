@@ -14,12 +14,6 @@ import org.springframework.stereotype.Service;
 import java.time.LocalDateTime;
 import java.util.List;
 
-/**
- * @author : minjooo
- * @fileName : BoardService
- * @since : 2024/09/17
- */
-
 @Service
 @Slf4j
 public class BoardService {

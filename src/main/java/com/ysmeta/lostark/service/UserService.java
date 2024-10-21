@@ -16,12 +16,6 @@ import java.util.List;
 import java.util.Optional;
 import java.util.UUID;
 
-/**
- * @author : ejum
- * @fileName : UserService
- * @since : 8/23/24
- */
-
 @Service
 public class UserService {
 

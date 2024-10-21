@@ -7,14 +7,6 @@ import lombok.ToString;
 
 import java.time.LocalDateTime;
 
-/**
- * 게시판 엔티티
- *
- * @author : minjooo
- * @fileName : BoardEntity
- * @since : 2024/09/17
- */
-
 @Getter
 @Setter
 @Entity

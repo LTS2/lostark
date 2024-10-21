@@ -5,11 +5,6 @@ import lombok.Getter;
 import lombok.Setter;
 import lombok.ToString;
 
-/**
- * @author : ejum
- * @fileName : CharacterEntity
- * @since : 8/22/24
- */
 @Entity
 @Getter
 @Setter

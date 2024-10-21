@@ -1,6 +1,5 @@
 package com.ysmeta.lostark.service;
 
-import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.ysmeta.lostark.dto.CharacterDTO;
 import com.ysmeta.lostark.entity.CharacterEntity;
@@ -19,11 +18,6 @@ import java.net.URLEncoder;
 import java.nio.charset.StandardCharsets;
 import java.util.List;
 
-/**
- * @author : ejum
- * @fileName : CharacterService
- * @since : 8/25/24
- */
 @Service
 @Slf4j
 public class CharacterService {

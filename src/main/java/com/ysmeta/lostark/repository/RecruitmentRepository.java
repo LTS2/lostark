@@ -10,11 +10,6 @@ import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 
-/**
- * @author : ejum
- * @fileName : RecruitmentRepository
- * @since : 8/25/24
- */
 @Repository
 public interface RecruitmentRepository extends JpaRepository<RecruitmentEntity, Long> {
     List<RecruitmentEntity> findAllByOrderByCreatedDateDesc();

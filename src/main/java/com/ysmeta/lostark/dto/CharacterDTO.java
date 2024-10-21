@@ -5,11 +5,6 @@ import com.ysmeta.lostark.entity.CharacterEntity;
 import lombok.Getter;
 import lombok.Setter;
 
-/**
- * @author : ejum
- * @fileName : CharacterDTO
- * @since : 8/25/24
- */
 @Getter
 @Setter
 public class CharacterDTO {
