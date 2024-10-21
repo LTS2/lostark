@@ -100,17 +100,17 @@
                             <h3 th:text="${team.user.username}"></h3>
                             <p th:text="${team.characterEntity.characterClassName}">직업이름</p>
                             <p th:text="${team.characterEntity.itemAvgLevel}">아이템 레벨</p>
-
+                            <!-- 모집글 작성자와 현재 로그인 한 유저와 다를때만 삭제 버튼 보여줌 -->
                             <form th:action="@{/api/recruitment/cancel/{id}(id=${recruitment.id})}" method="post"
+                                  th:if="${session.user != null and session.user.getId() != recruitment.getUser().getId()}"
                                   onsubmit="return confirm('정말 지원을 취소하시겠습니까?');">
-                                <button th:if="${sessionUser != null and sessionUser.id == team.user.id}" type="submit" class="cancel-button" aria-label="취소">
+                                <button th:if="${sessionUser.id == team.user.id}" type="submit" class="cancel-button" aria-label="취소">
                                     <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="24" height="24">
                                         <circle cx="12" cy="12" r="11" fill="#FF0000" />
                                         <path d="M6.7 6.7 L17.3 17.3 M17.3 6.7 L6.7 17.3" stroke="#FFFFFF" stroke-width="2" stroke-linecap="round" />
                                     </svg>
                                 </button>
                             </form>
-
                         </div>
                     </div>
 
